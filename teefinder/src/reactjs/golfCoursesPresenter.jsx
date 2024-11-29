@@ -1,6 +1,6 @@
 import React from 'react';
 const golfcoursesPresenter = () => {
-  return <golfcoursesView />;
+  return <GolfCoursesView />;
 };
 
 export default golfcoursesPresenter;
