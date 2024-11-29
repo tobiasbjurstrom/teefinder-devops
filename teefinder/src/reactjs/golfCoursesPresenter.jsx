@@ -1,8 +1,6 @@
 import React from 'react';
-import golfCoursesView from './views/golfCoursesView';
-
-const golfCoursesPresenter = () => {
-  return <golfCoursesView />;
+const golfcoursesPresenter = () => {
+  return <golfcoursesView />;
 };
 
-export default golfCoursesPresenter;
+export default golfcoursesPresenter;

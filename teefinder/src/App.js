@@ -1,12 +1,10 @@
 
 import './App.css';
-import GolfCoursesPresenter from './reactjs/golfCoursesPresenter';
-import props from './reactjs/props';
 
-function App(props) {
+function App() {
   return (
     <div>
-      <GolfCoursesPresenter model={props.model} />
+      <golfcoursesPresenter />
     </div>
   );
 }
