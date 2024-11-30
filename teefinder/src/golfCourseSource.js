@@ -1,6 +1,5 @@
-
 async function fetchGolfCourses() {
-    const url = 'https://golf-course-finder.p.rapidapi.com/api/golf-clubs/?miles=50&latitude=39.569389&longitude=2.650239';
+    const url = 'https://golf-course-finder.p.rapidapi.com/api/golf-clubs/?miles=10&latitude=39.569389&longitude=2.650239';
     const options = {
         method: 'GET',
         headers: {
@@ -15,9 +14,11 @@ async function fetchGolfCourses() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-        console.log(result);
+        console.log(result); // Log the entire result to see the structure
+        return result;
     } catch (error) {
-        console.error('error fetching data');
+        console.error('Error fetching data:', error);
+        throw error;
     }
 }
 
