@@ -17,9 +17,9 @@ const model = observable({
 
   loadGolfCourses() {
     const query = {
-      miles: 30,
-      latitude: 39.569389,
-      longitude: 2.650239
+      miles: 49,
+      latitude: -33.920727,
+      longitude: 18.726318
     };
     const prms = fetchGolfCourses(query);
     console.log("loadGolfCourses: ", prms);
@@ -61,7 +61,9 @@ const model = observable({
 
   hideDetails() {
     this.showDetails = false;
-  }
+  },
+
+
 });
 
 export { model };

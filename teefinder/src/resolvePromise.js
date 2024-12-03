@@ -1,13 +1,13 @@
 export function resolvePromise(prms,promiseState){
 
     function resolvedACB(datad){
-        if(promiseState.promise != prms) {
+        if(promiseState.promise !== prms) {
             return;}
         promiseState.data = datad;
         
     }
     function errorACB(err){
-        if(promiseState.promise != prms) {
+        if(promiseState.promise !== prms) {
             return;}
         promiseState.error = err;
         
