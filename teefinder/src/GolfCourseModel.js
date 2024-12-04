@@ -4,6 +4,7 @@ import { resolvePromise } from './resolvePromise.js';
 
 const model = {
   clubinformation: [],
+  favourites: [],
   selectedCourse: null,
   golfCoursesPromiseState: {
     promise: null,
@@ -21,6 +22,13 @@ const model = {
 
   getSelectedCourse() {
     return this.selectedCourse;
+  },
+
+  addToFavourites(course) {
+    this.favourites.push(course);
+  },
+  getFavourites() {
+    return this.favourites;
   },
 
 

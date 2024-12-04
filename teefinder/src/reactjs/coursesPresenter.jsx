@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import CoursesView from '../views/coursesView';
 import DetailsPresenter from './detailsPresenter';
+import FavouritesPresenter from './favouritesPresenter';
+import { set } from 'mobx';
 
 const CoursesPresenter = observer(function CoursesRender(props) {
 
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedCourse, setSelectedCourse] = useState(null); //details
+  const [selectedFavourite, setSelectedFavourite] = useState(null); //favourites
  /*
   if (!props.model.golfCoursesPromiseState.promise) {
     console.log('Calling loadCourses...');
@@ -19,6 +22,13 @@ const CoursesPresenter = observer(function CoursesRender(props) {
 
   function goBack() {
     setSelectedCourse(null);
+    setSelectedFavourite(null);
+  }
+
+
+  function clickOnFavouritesACB(courseName) {
+    props.model.addToFavourites(courseName)
+    setSelectedFavourite(true);
   }
 
 
@@ -32,7 +42,16 @@ const CoursesPresenter = observer(function CoursesRender(props) {
     return <img src="https://brfenergi.se/iprog/loading.gif" alt="Loading" />;
   }
   if (selectedCourse) {
-    return <DetailsPresenter model={props.model} goBack={goBack} />;
+    return <DetailsPresenter 
+    model={props.model} 
+    goBack={goBack} />;
+  }
+  if(selectedFavourite) {
+    return <FavouritesPresenter 
+    model={props.model} 
+    goBack={goBack}
+    
+    />;
   }
   
 
@@ -40,6 +59,7 @@ const CoursesPresenter = observer(function CoursesRender(props) {
     <CoursesView 
     model={props.model} 
     clickOnCourse={clickOnCourseACB}
+    clickOnFavourites={clickOnFavouritesACB}
     />
   );
 });

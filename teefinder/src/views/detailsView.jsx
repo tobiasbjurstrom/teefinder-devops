@@ -1,5 +1,6 @@
 import React from "react";
 
+
 export function DetailsView(props) {
     const course = props.model.getSelectedCourse();
     if (!course) {
