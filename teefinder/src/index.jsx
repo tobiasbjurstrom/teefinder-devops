@@ -17,3 +17,5 @@ root.render(rootJSX);
 
 // For debug purposes, do not do this in production!
 window.myModel = reactiveModel;
+
+reactiveModel.loadCourses();

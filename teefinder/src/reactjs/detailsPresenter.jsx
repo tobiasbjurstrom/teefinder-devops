@@ -2,20 +2,9 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import DetailsView from '../views/detailsView';
 
-const DetailsPresenter = observer(({ model, onBackClick }) => {
-    const course = model.getSelectedCourse();
-
-    if (!course) {
-        return <div>No course selected.</div>;
-    }
-    
+const DetailsPresenter = observer(function DetailsRender(props) {
     return (
-        <div>
-            <button onClick={onBackClick}>Back to Courses</button>
-
-            <DetailsView course={course} />
-
-        </div>
+        <DetailsView model={props.model}  goBack={props.goBack}  />
     );
 });
 

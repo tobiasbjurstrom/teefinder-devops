@@ -1,72 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import CoursesView from '../views/coursesView';
 import DetailsPresenter from './detailsPresenter';
-import FavouritesView from '../views/favouritesView';
-import FavouritesPresenter from './favouritesPresenter';
 
+const CoursesPresenter = observer(function CoursesRender(props) {
 
-const CoursesPresenter = observer(({ model }) => {
-  const [showDetails, setShowDetails] = useState(false);
-  const [showFavourites, setShowFavourites] = useState(false);
-
-
-  if (!model.clubinformation.length && !model.isLoading() && !model.getError()) {
-    model.loadGolfCourses();
+  const [selectedCourse, setSelectedCourse] = useState(null);
+ /*
+  if (!props.model.golfCoursesPromiseState.promise) {
+    console.log('Calling loadCourses...');
+    props.model.loadCourses();
+  }
+    */
+  function clickOnCourseACB(courseName) {
+    props.model.setSelectedCourse(courseName);
+    setSelectedCourse(courseName);
   }
 
-  if (model.isLoading()) {
-    return <div>Loading...</div>
+  function goBack() {
+    setSelectedCourse(null);
   }
 
-  if (model.getError()) {
-    return <div>Error: {model.getError().message}</div>;
+
+  if (!props.model.golfCoursesPromiseState.promise) {
+    return <div>No data</div>;
   }
-
-  const handleCourseClick = (courseName) => {
-    model.setSelectedCourse(courseName);
-    setShowDetails(true);
-  };
-
-  const handleBackClick = () => {
-    setShowDetails(false);
-    model.hideDetails();
-  };
-///////////////
-  const handleShowFavourites = () => {
-    setShowFavourites(true);
-  };
-
-  const handleHideFavourites = () => {
-    setShowFavourites(false);
-  };
-
-
-
-  const renderContent = () => {
-    if (showDetails) {
-      return <DetailsPresenter model={model} onBackClick={handleBackClick} />;
-    } else if (showFavourites) {
-      return <FavouritesPresenter model={model} onBackClickk={handleHideFavourites} />;
-    } else {
-      return (
-        <CoursesView
-          courses={model.getCourseNames()}
-          loading={model.isLoading()}
-          onCourseClick={handleCourseClick}
-          onShowFavourites={handleShowFavourites}
-        />
-      );
-     
-    
-      
-    }
-  };
+  else if (props.model.golfCoursesPromiseState.error) {
+    return <div>{props.model.golfCoursesPromiseState.error.toString()}</div>;
+  }
+  else if (!props.model.golfCoursesPromiseState.data) {
+    return <img src="https://brfenergi.se/iprog/loading.gif" alt="Loading" />;
+  }
+  if (selectedCourse) {
+    return <DetailsPresenter model={props.model} goBack={goBack} />;
+  }
+  
 
   return (
-    <div>
-      {renderContent()}
-    </div>
+    <CoursesView 
+    model={props.model} 
+    clickOnCourse={clickOnCourseACB}
+    />
   );
 });
 
