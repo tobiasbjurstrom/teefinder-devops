@@ -15,6 +15,7 @@ export function CoursesView(props) {
               {courseName}
             </span>
             <button onClick={() => props.clickOnFavourites(courseName)} className ="align-right">Add to Favourites</button>
+            <button onClick={() => props.removeFavourite(courseName)}> Remove Favourite</button>
           </li>
         ))}
       </ul>

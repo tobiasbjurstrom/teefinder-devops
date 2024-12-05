@@ -1,13 +1,13 @@
 import React from 'react';
-import { FavouritesView } from '../views/favouritesView';
+import { observer } from 'mobx-react-lite';
+import FavouritesView from '../views/favouritesView';
 
-const FavouritesPresenter = (props) => {
+const FavouritesPresenter = observer(function FavouritesRender(props) {
   return (
-    <FavouritesView model={props.model}  
-    goBack={props.goBack}  
-    clickOnFavourites={props.clickOnFavourites}
-     showFavourites={props.showFavourites}/>
-    
+    <div>
+      <FavouritesView favourites={props.model.getFavourites()} goBack={props.goBack}/>
+    </div>
   );
-}
+});
+
 export default FavouritesPresenter;

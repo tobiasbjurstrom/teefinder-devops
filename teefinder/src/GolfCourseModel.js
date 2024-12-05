@@ -1,4 +1,4 @@
-import { set } from 'mobx';
+
 import { fetchGolfCourses } from './golfCourseSource.js';
 import { resolvePromise } from './resolvePromise.js';
 
@@ -6,7 +6,7 @@ const model = {
   clubinformation: [],
   favourites: [],
   selectedCourse: null,
-  golfCoursesPromiseState: {
+    golfCoursesPromiseState: {
     promise: null,
     data: null,
     error: null
@@ -27,6 +27,11 @@ const model = {
   addToFavourites(course) {
     this.favourites.push(course);
   },
+
+  removeFavourite(course) {
+    this.favourites = this.favourites.filter(fav => fav.club_name !== course.club_name);
+  },
+
   getFavourites() {
     return this.favourites;
   },
