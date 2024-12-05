@@ -27,8 +27,13 @@ const CoursesPresenter = observer(function CoursesRender(props) {
 
 
   function clickOnFavouritesACB(courseName) {
-    props.model.addToFavourites(courseName)
+    if (!props.model.favourites.includes(courseName)) {
+      props.model.addToFavourites(courseName);
+    }
+  }
+  function showFavouritesACB(){
     setSelectedFavourite(true);
+
   }
 
 
@@ -50,16 +55,14 @@ const CoursesPresenter = observer(function CoursesRender(props) {
     return <FavouritesPresenter 
     model={props.model} 
     goBack={goBack}
-    
     />;
   }
-  
-
   return (
     <CoursesView 
     model={props.model} 
     clickOnCourse={clickOnCourseACB}
     clickOnFavourites={clickOnFavouritesACB}
+    showFavourites={showFavouritesACB}
     />
   );
 });
