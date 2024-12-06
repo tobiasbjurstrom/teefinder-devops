@@ -4,13 +4,13 @@ import { observable, configure, reaction } from 'mobx';
 import { ReactRoot } from './reactjs/ReactRoot';
 
 import "./firebaseModel.js";
-
+import {model} from './GolfCourseModel';
 
 import { connectToFirebase } from './firebaseModel.js';
 configure({ enforceActions: 'never' }); // we don't use MobX actions
 
 
-import {model} from './GolfCourseModel';
+
 // Make the model reactive
 const reactiveModel = observable(model);
 
