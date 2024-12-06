@@ -6,19 +6,23 @@ const MapView = ({ model, src }) => {
         lat: 59.3293,       //Stockholm default
         lng: 18.0686,
       });*/
-
+    /*
     const query = {
         long: '59.3293', 
         lat: '18.0686',
         zoom: 12,                 
         maptype: 'roadmap',        
     };
+    
 
-    model.loadGoogleMaps(query);
+  //  model.loadGoogleMaps(query);
 
     console.log(model.src.url);
     console.log(model.mapsPromiseState)
-
+    if(!model.src?.url){
+       return  <p>Loading</p>;
+    }
+       */
   return (
         <iframe
             title="Google Map"

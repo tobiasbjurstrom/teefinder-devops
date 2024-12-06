@@ -20,6 +20,8 @@ const model = {
   },
   src: null,
 
+  
+
 
   loadGolfCourses() {
     const query = {

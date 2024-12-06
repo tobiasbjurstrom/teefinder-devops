@@ -7,15 +7,19 @@ const ReactRoot = observer(function ReactRoot(props) {
   if (!props.model.golfCoursesPromiseState.promise) {
     return <img src="https://brfenergi.se/iprog/loading.gif" alt="Loading" />;
   }
+  
   return (
     <div className="flexParent">
       <div className="mainContent">
       <MapPresenter model ={props.model}/>
+      
     
       </div>
     </div>
   );
 });
+//<CoursesPresenter model={props.model} />
+//<MapPresenter model ={props.model}/>
 
 export { ReactRoot };
 /* <CoursesPresenter model={props.model} />
