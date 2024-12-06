@@ -4,12 +4,11 @@ import { observer } from 'mobx-react-lite';
 import MapView from '../views/mapView';
 
 
-const MapPresenter = observer(({ model }) => {
-    console.log("Map presenter")
+const MapPresenter = observer(function MapsRender(props) {
 
     return (
         <div><h3>Google maps: </h3>
-          {MapView(model)}
+          <MapView model = {props.model} src = {props.src} />
         </div>
     );
 });

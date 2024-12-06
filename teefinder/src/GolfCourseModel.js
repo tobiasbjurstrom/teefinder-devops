@@ -1,6 +1,7 @@
 import { observable } from 'mobx';
 import { fetchGolfCourses } from './golfCourseSource';
 import { resolvePromise } from './resolvePromise';
+import { fetchGoogleMaps } from './googleMapsSource';
 
 const model = observable({
   clubinformation: [],
@@ -14,6 +15,13 @@ const model = observable({
     data: null,
     error: null,
   },
+  mapsPromiseState: {
+    promise: null,
+    data: null,
+    error: null,
+  },
+  src: null,
+
 
   loadGolfCourses() {
     const query = {
@@ -63,6 +71,25 @@ const model = observable({
     this.showDetails = false;
   },
 
+  loadGoogleMaps(query) {
+
+    const srcMaps = fetchGoogleMaps(query);
+    resolvePromise(srcMaps, this.mapsPromiseState);
+
+    srcMaps.then((data) => {
+        console.log("DAta: "+ data);
+        this.src = data || [];
+        console.log("Promise done: ")
+        console.log(this.src)
+        this.loading = false;
+      }).catch((error) => {
+        this.error = error;
+        this.loading = false;
+      });
+    },
+    getSrcURL() {
+      return this.src.url;
+    },
 
 });
 

@@ -1,16 +1,12 @@
 
 import React from 'react';
-import {urlBuilder} from '../googleMapsSource';
 
-
-
-const MapView = ({  }) => {
+const MapView = ({ model, src }) => {
     /*const [markerLocation, setMarkerLocation] = useState({
         lat: 59.3293,       //Stockholm default
         lng: 18.0686,
       });*/
 
-console.log("map view");
     const query = {
         long: '59.3293', 
         lat: '18.0686',
@@ -18,10 +14,9 @@ console.log("map view");
         maptype: 'roadmap',        
     };
 
-    const embedUrl = urlBuilder(query);
-    console.log(embedUrl);
+    model.loadGoogleMaps(query);
 
-
+    console.log(model.src.url);
 
   return (
         <iframe
@@ -31,7 +26,7 @@ console.log("map view");
             style={{ border: 20 }}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            src={embedUrl}
+            src= {model.src.url}
             alt= "https://brfenergi.se/iprog/loading.gif"
         ></iframe>
   );
