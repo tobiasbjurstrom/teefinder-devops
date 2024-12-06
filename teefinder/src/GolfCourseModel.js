@@ -20,14 +20,14 @@ const model = {
   },
   src: null,
 
-  
 
 
+/*
   loadGolfCourses() {
     const query = {
       miles: 49,
-      latitude: -33.920727,
-      longitude: 18.726318
+      latitude: -3.920727,
+      longitude: 1.726318
     };
     const prms = fetchGolfCourses(query);
     console.log("loadGolfCourses: ", prms);
@@ -41,7 +41,7 @@ const model = {
         this.loading = false;
       });
   },
-
+  */
   getCourseNames() {
     return this.clubinformation.map(club => club.club_name);
   },
