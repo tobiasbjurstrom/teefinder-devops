@@ -17,6 +17,7 @@ const MapView = ({ model, src }) => {
     model.loadGoogleMaps(query);
 
     console.log(model.src.url);
+    console.log(model.mapsPromiseState)
 
   return (
         <iframe
