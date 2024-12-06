@@ -24,7 +24,7 @@ const MapPresenter = observer(function MapsRender(props) {
 
     return (
         <div><h3>Google maps: </h3>
-          <MapView model = {props.model} src = {props.src} />
+          <MapView model = {props.model} />
         </div>
     );
 });
