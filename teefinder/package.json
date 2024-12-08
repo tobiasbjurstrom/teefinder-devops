@@ -21,7 +21,6 @@
     "eject": "react-scripts eject",
     "dev": "react-scripts start",
     "serve": "serve -s build"
-
   },
   "eslintConfig": {
     "extends": [
