@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+Project in DH2624
+This is an app for golf players to find golf courses based on coordinates from an embedded google maps view. The user chose an destination either by clicking the map or search a city. 
+The app show golf courses close to the location and the user may interact with the reults to find more info of the courses. The user may rate and save the golf courses. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+What we have done: 
+Embedded google maps on the app using an API 
+Acquire golf courses from static coordinates (not user given), longitude and latitude. 
 
-## Available Scripts
+What we plan to do: 
+Enable the user to give coordinates to fetch Golf courses. 
+UI/UX evaluation to target user group 
+Rating and login function 
 
-In the project directory, you can run:
+GolfCourseModel.js 
+Model for the app. 
 
-### `npm start`
+golfCourseSource.js
+Code for fetching golf courses using API. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+googleMapsSource.js
+Code for fatiching using the Google maps API 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+mapView.js & mapPresenter.js 
+View and presenter for google maps. 
 
-### `npm test`
+coursesView & coursesPresenter.js 
+View and presenter for the gold course API 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+detailsView &  detalsPresenter
+View and presenter for individual golf courses, more detailed. 
 
-### `npm run build`
+favouritesView & favouritesPresenter
+View and presenter for the favourites store by the user. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+loginView & loginPresenter
+View and presenter for the login field. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+firebaseConfig.js
+Configuration for firebase
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+firebaseModel.js
+Model for firebase
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+resolvePromises.js
+Code to resolve promises. 
