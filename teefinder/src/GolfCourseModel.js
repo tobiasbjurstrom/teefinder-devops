@@ -2,7 +2,7 @@
 import { fetchGolfCourses } from './golfCourseSource.js';
 import { resolvePromise } from './resolvePromise.js';
 import { observable } from 'mobx';
-import { fetchGoogleMaps } from './googleMapsSource';
+import { fetchGoogleMaps, initializeMap } from './googleMapsSource';
 
 const model = {
   clubinformation: [],
@@ -19,29 +19,13 @@ const model = {
     error: null,
   },
   src: null,
-
-
-
-/*
-  loadGolfCourses() {
-    const query = {
-      miles: 49,
-      latitude: -3.920727,
-      longitude: 1.726318
-    };
-    const prms = fetchGolfCourses(query);
-    console.log("loadGolfCourses: ", prms);
-    resolvePromise(prms, this.golfCoursesPromiseState);
-
-    prms.then((data) => {
-        this.clubinformation = data || [];
-        this.loading = false;
-      }).catch((error) => {
-        this.error = error;
-        this.loading = false;
-      });
+  map: null,
+  loading: false,
+  clickedCoordinates:{
+    lat: null,
+    lng: null,
   },
-  */
+
   getCourseNames() {
     return this.clubinformation.map(club => club.club_name);
   },
@@ -67,24 +51,20 @@ const model = {
   },
 
   loadGoogleMaps(query) {
-
-    const srcMaps = fetchGoogleMaps(query);
-    resolvePromise(srcMaps, this.mapsPromiseState);
-
-    srcMaps.then((data) => {
-        console.log("DAta: "+ data);
-        this.src = data || [];
-        console.log("Promise done: ")
-        console.log(this.src)
-        this.loading = false;
-      }).catch((error) => {
-        this.error = error;
-        this.loading = false;
-      });
+    this.loading = true;
+    fetchGoogleMaps(query)
+    
     },
+
+    async initializeMap(query) {
+      initializeMap(query);
+    },
+
+
     getSrcURL() {
       return this.src.url;
     },
+
 
   loadCourses() {
     console.log('Loading courses...');

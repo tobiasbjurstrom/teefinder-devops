@@ -1,21 +1,17 @@
 
 
 const apiKey ='AIzaSyA6i9thnMDGCRhO-EP5-X_yGyRMgHS5gqY';
-const apiURL = 'https://www.google.com/maps/embed/v1/view?key=';
+const apiURL = 'https://maps.googleapis.com/maps/api/js?key=';
 //https://www.google.com/maps/embed/v1/MAP_MODE?key=YOUR_API_KEY&PARAMETERS
     
+window.clickedCoordinates = null;
 
-function urlBuilder(query) {
-    console.log('Query object:', query);
+function urlBuilder() {
 
-    if (!query.long || !query.lat) {
-        throw new Error('Longitude and latitude must be defined');
-    }
-    const url = `${apiURL}${apiKey}&center=${query.long},${query.lat}&zoom=${query.zoom}&maptype=${query.maptype}`;
+    const url = `${apiURL}${apiKey}&loading=async&libraries=maps&callback=initMap`;
 
     return url;
 }
-
 
 function handleResponse(response) {
     if (!response.ok) {
@@ -25,20 +21,58 @@ function handleResponse(response) {
     return response;
 }
 
-async function fetchGoogleMaps(query) {
-    const url = urlBuilder(query);
-
+async function fetchGoogleMaps() {
+    const url = urlBuilder();
+    console.log('fetching:')
     try {
-        const response = await fetch(url);
-        console.log("HandleResponse")
-        return handleResponse(response);
-    } catch (error) {
-        console.error('Error fetching data:', error);
+        const script = document.createElement('script');
+        script.src = url; 
+        script.async = true;
+        script.defer = true;
+    
+        window.initMap = () => {
+            console.log('Google Maps API loaded');
+              initializeMap(); 
+        };
+            document.head.appendChild(script);
+        } catch (error) {
+            console.error('Error fetching data:', error);
         throw error;
-    }
+        }
 }
+async function initializeMap() {
 
-export { fetchGoogleMaps };
+    const position = { lat: 59.3293, lng: 18.0686 };
+    if (window.google && window.google.maps) {
+      const { Map } = window.google.maps;
+      const { AdvancedMarkerElement } = await window.google.maps.importLibrary("marker");
+      const map = new Map(document.getElementById('map'), {
+        center: position,
+        zoom: 10,
+        mapId: "DEMO_MAP_ID",
+      });
+
+      const marker = new window.google.maps.marker.AdvancedMarkerElement({
+        position: position,
+        map,
+        title: "Click to Stockholm",
+      });
+
+      map.addListener('click', (event) => {
+        const clickedLat = event.latLng.lat();
+        const clickedLng = event.latLng.lng();
+        console.log(`Clicked coordinates: Latitude: ${clickedLat}, Longitude: ${clickedLng}`);
+
+        var clickedCoordinates = { lat: clickedLat, lng: clickedLng };
+    });
+  
+      console.log('Map initialized:', map);
+    } else {
+      console.error('Google Maps API is not available');
+    }
+  }
+
+export { fetchGoogleMaps, initializeMap };
 
 
 

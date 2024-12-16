@@ -11,9 +11,10 @@ const ReactRoot = observer(function ReactRoot(props) {
   return (
     <div className="flexParent">
       <div className="mainContent">
-      <MapPresenter model ={props.model}/>
-      <CoursesPresenter model={props.model} />
-      
+        <div className = "mapsContent">
+        <MapPresenter model ={props.model}/>
+        </div>
+     
     
       </div>
     </div>
