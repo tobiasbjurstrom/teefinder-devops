@@ -4,7 +4,7 @@ import { resolvePromise } from './resolvePromise.js';
 import { observable } from 'mobx';
 import { fetchGoogleMaps, initializeMap } from './googleMapsSource';
 
-const model = {
+const model = observable({
   clubinformation: [],
   favourites: [],
   selectedCourse: null,
@@ -27,10 +27,16 @@ const model = {
   },
 
   getCourseNames() {
+    if (!Array.isArray(this.clubinformation)) {
+      return [];
+    }
     return this.clubinformation.map(club => club.club_name);
   },
 
   setSelectedCourse(course) {
+    if (!Array.isArray(this.clubinformation)) {
+      this.clubinformation = [];
+    }
     this.selectedCourse = this.clubinformation.find(club => club.club_name === course);
   },
 
@@ -66,7 +72,7 @@ const model = {
     },
 
 
-  loadCourses() {
+   loadCourses() {
     console.log('Loading courses...');
     const prms = fetchGolfCourses();
     resolvePromise(prms, this.golfCoursesPromiseState);
@@ -80,6 +86,6 @@ const model = {
       console.error('Error:', error);
     });
   }
-};
+});
 
 export { model };

@@ -5,6 +5,7 @@ import '../index.css';
 export function CoursesView(props) {
   
   return (
+    
     <div>
       <h1>Golf Courses</h1>
       <button onClick= {()=> props.showFavourites() } >show Favourites</button>
@@ -14,6 +15,7 @@ export function CoursesView(props) {
             <span onClick={() => props.clickOnCourse(courseName)} style={{ cursor: 'pointer', textDecoration: 'underline', color: 'red' }}>
               {courseName}
             </span>
+            
             <button onClick={() => props.clickOnFavourites(courseName)} className ="align-right">Add to Favourites</button>
             <button onClick={() => props.removeFavourite(courseName)}> Remove Favourite</button>
           </li>

@@ -10,12 +10,8 @@ const CoursesPresenter = observer(function CoursesRender(props) {
 
   const [selectedCourse, setSelectedCourse] = useState(null); //details
   const [selectedFavourite, setSelectedFavourite] = useState(null); //favourites
- /*
-  if (!props.model.golfCoursesPromiseState.promise) {
-    console.log('Calling loadCourses...');
-    props.model.loadCourses();
-  }
-    */
+
+
   function clickOnCourseACB(courseName) {
     props.model.setSelectedCourse(courseName);
     setSelectedCourse(courseName);
@@ -25,6 +21,7 @@ const CoursesPresenter = observer(function CoursesRender(props) {
     setSelectedCourse(null);
     setSelectedFavourite(null);
   }
+
 
 
 
@@ -80,6 +77,7 @@ const CoursesPresenter = observer(function CoursesRender(props) {
     />;
   }
   return (
+    <div>
     <CoursesView 
     model={props.model} 
     clickOnCourse={clickOnCourseACB}
@@ -87,6 +85,9 @@ const CoursesPresenter = observer(function CoursesRender(props) {
     showFavourites={showFavouritesACB}
     removeFavourite={removeFavouriteACB}
     />
+      
+    </div>
+    
   );
 });
 
