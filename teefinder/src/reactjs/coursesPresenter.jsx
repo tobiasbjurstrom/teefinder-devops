@@ -10,26 +10,6 @@ const CoursesPresenter = observer(function CoursesRender(props) {
 
   const [selectedCourse, setSelectedCourse] = useState(null); //details
   const [selectedFavourite, setSelectedFavourite] = useState(null); //favourites
- /*
-  if (!props.model.golfCoursesPromiseState.promise) {
-    console.log('Calling loadCourses...');
-    props.model.loadCourses();
-  }
-    */
-   /*
-  async function fetchCourses() {
-    try {
-      const miles = 10; // Set the desired miles
-      const data = await fetchGolfCourses(miles);
-      console.log('Golf courses:', data);
-      // Update the model with the fetched courses
-      props.model.loadCourses(data);
-    } catch (error) {
-      console.error('Error fetching golf courses:', error);
-    }
-  }
-    */
-
 
 
   function clickOnCourseACB(courseName) {
@@ -110,6 +90,5 @@ const CoursesPresenter = observer(function CoursesRender(props) {
     
   );
 });
-  //<button onClick={fetchCourses}>Fetch Golf Courses</button>
 
 export default CoursesPresenter;
