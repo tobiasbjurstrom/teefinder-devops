@@ -13,6 +13,7 @@ const ReactRoot = observer(function ReactRoot(props) {
       <div className="mainContent">
         <div className = "mapsContent">
         <MapPresenter model ={props.model}/>
+        <CoursesPresenter model={props.model} />
         </div>
      
     

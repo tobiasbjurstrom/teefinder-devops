@@ -1,10 +1,13 @@
-
+import { model } from './GolfCourseModel';
 
 const apiKey ='AIzaSyA6i9thnMDGCRhO-EP5-X_yGyRMgHS5gqY';
 const apiURL = 'https://maps.googleapis.com/maps/api/js?key=';
 //https://www.google.com/maps/embed/v1/MAP_MODE?key=YOUR_API_KEY&PARAMETERS
     
 window.clickedCoordinates = null;
+
+let clickedLat = null;
+let clickedLng = null;
 
 function urlBuilder() {
 
@@ -59,20 +62,33 @@ async function initializeMap() {
       });
 
       map.addListener('click', (event) => {
-        const clickedLat = event.latLng.lat();
-        const clickedLng = event.latLng.lng();
+         clickedLat = event.latLng.lat();
+         clickedLng = event.latLng.lng();
         console.log(`Clicked coordinates: Latitude: ${clickedLat}, Longitude: ${clickedLng}`);
 
-        var clickedCoordinates = { lat: clickedLat, lng: clickedLng };
+
+        try {
+           model.loadCourses();
+      } catch (error) {
+          console.error('Error fetching golf courses:', error);
+      }
     });
   
       console.log('Map initialized:', map);
     } else {
       console.error('Google Maps API is not available');
     }
-  }
 
-export { fetchGoogleMaps, initializeMap };
+  
+
+  }
+function getClickedLat(){
+    return clickedLat;
+}
+function getClickedLng(){
+  return clickedLng;
+}
+export { fetchGoogleMaps, initializeMap, getClickedLat, getClickedLng };
 
 
 
