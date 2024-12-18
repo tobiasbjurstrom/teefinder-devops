@@ -3,15 +3,16 @@ import { observer } from 'mobx-react-lite';
 import CoursesPresenter from './coursesPresenter';
 import MapPresenter from './mapPresenter';
 
+
 const ReactRoot = observer(function ReactRoot(props) {
   if (!props.model.golfCoursesPromiseState.promise) {
     return <img src="https://brfenergi.se/iprog/loading.gif" alt="Loading" />;
   }
   
   return (
-    <div className="flexParent">
-      <div className="mainContent">
-        <div className = "mapsContent">
+    <div className="flex-parent"><h1>Teefinder </h1>
+      <div className="main-content">
+        <div className = "maps-content">
         <MapPresenter model ={props.model}/>
         </div>
      

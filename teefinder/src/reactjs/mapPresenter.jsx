@@ -4,12 +4,13 @@ import { observer } from 'mobx-react-lite';
 import MapView from '../views/mapView';
 
 
+
 const MapPresenter = observer(function MapsRender(props) {
     const [isLoaded, setIsLoaded] = useState(false);
     if(!isLoaded){
       const query = {
-        lat: 59.3293,
-        lng: 18.0686
+        lat: null, //59.3293,
+        lng: null, //18.0686,
       }
 
     props.model.loadGoogleMaps(query);
@@ -17,23 +18,26 @@ const MapPresenter = observer(function MapsRender(props) {
     setIsLoaded(true);
     }
 
-    
-    const updateMapCenter = () => {
-      const query = {
-          lat: 40.7128, 
-          long: -74.0060, 
-          zoom: 12, 
-      };
+    function handleSearch() {
+      //query.city = document.querySelector(".search-bar").value;
 
-      props.model.initializeMap(query);
-  };
+  }
 
     return (
-        <div><h3>Google maps: </h3>
+      
+        <div className= "map-presenter">
         <MapView model={props.model} src={props.src} />
-        <button onClick={updateMapCenter} style={{ marginTop: "20px" }}>
-                Update Map Center
-            </button>
+        <div className="search-container">
+        <input 
+            id="city-search"
+            type="text" 
+            className="search-bar" 
+            placeholder="Search location..." 
+        />
+        <button className="search-button" onClick={handleSearch}>
+            <i className="fa fa-search"></i>
+        </button>
+        </div>
       </div>
     );
 });

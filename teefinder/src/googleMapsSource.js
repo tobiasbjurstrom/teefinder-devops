@@ -5,10 +5,11 @@ const apiURL = 'https://maps.googleapis.com/maps/api/js?key=';
 //https://www.google.com/maps/embed/v1/MAP_MODE?key=YOUR_API_KEY&PARAMETERS
     
 window.clickedCoordinates = null;
+ let position = null;
 
 function urlBuilder() {
 
-    const url = `${apiURL}${apiKey}&loading=async&libraries=maps&callback=initMap`;
+    const url = `${apiURL}${apiKey}&loading=async&libraries=maps,places&callback=initMap`;
 
     return url;
 }
@@ -40,9 +41,12 @@ async function fetchGoogleMaps() {
         throw error;
         }
 }
-async function initializeMap() {
+async function initializeMap(query) {
 
-    const position = { lat: 59.3293, lng: 18.0686 };
+    if(window.position ==null){
+        position = { lat: 59.3293, lng: 18.0686 };
+    }
+
     if (window.google && window.google.maps) {
       const { Map } = window.google.maps;
       const { AdvancedMarkerElement } = await window.google.maps.importLibrary("marker");
@@ -63,9 +67,39 @@ async function initializeMap() {
         const clickedLng = event.latLng.lng();
         console.log(`Clicked coordinates: Latitude: ${clickedLat}, Longitude: ${clickedLng}`);
 
-        var clickedCoordinates = { lat: clickedLat, lng: clickedLng };
+        window.clickedCoordinates = { lat: clickedLat, lng: clickedLng };
     });
+
+    let input = document.getElementById("city-search");
+    let autocomplete = new window.google.maps.places.Autocomplete(input);
   
+
+    autocomplete.addListener("place_changed", function () {
+    let place = autocomplete.getPlace();
+        console.log(place.geometry.location.lng)
+    if (!place.geometry) {
+      console.log("No details available for input: " + place.name);
+      return;
+    }
+
+    map.setCenter(place.geometry.location);
+    map.setZoom(10); 
+    const lat = place.geometry.location.lat();
+    const lng = place.geometry.location.lng();
+
+    window.clickedCoordinates = { lat: lat, lng: lng };
+    position = {lat: lat, lng: lng};
+
+    console.log("Latitude: " + lat);
+    console.log("Longitude: " + lng);
+
+    const marker = new window.google.maps.marker.AdvancedMarkerElement({
+        position: position,
+        map,
+      });
+
+  });
+
       console.log('Map initialized:', map);
     } else {
       console.error('Google Maps API is not available');
