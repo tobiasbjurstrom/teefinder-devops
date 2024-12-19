@@ -72,6 +72,7 @@ async function initializeMap(query) {
 
         window.clickedCoordinates = { lat: clickedLat, lng: clickedLng };
         console.log(window.clickedCoordinates.lat);
+        model.loadCourses();
     });
 
     let input = document.getElementById("city-search");
