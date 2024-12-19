@@ -5,7 +5,6 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
-  signInWithEmailAndPassword,
 } from "firebase/auth";
 import LoginView from "../views/loginView";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +15,6 @@ const LoginPresenter = observer(({ model }) => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  // Monitor authentication state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -40,19 +38,16 @@ const LoginPresenter = observer(({ model }) => {
     }
   };
 
-  // Handle email/password login
-  const handleEmailPasswordLogin = async (email, password) => {
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      setErrors((prevErrors) => ({ ...prevErrors, email: "Invalid email or password. Please try again." }));
-    }
+  // hantera gästinlogg
+  const handleGuestLogin = () => {
+    model.setUserToGuestAccount();
+    navigate("/");
   };
 
   return (
     <LoginView
-      onLogin={handleEmailPasswordLogin}
       onGoogleLogin={handleGoogleLogin}
+      onGuestLogin={handleGuestLogin}
       isLoggedIn={!!model.user}
       errors={errors}
     />

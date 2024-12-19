@@ -6,6 +6,7 @@ import { fetchGolfCourses } from "./golfCourseSource";
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const usersRef = ref(db, "users");
 
 const PATH = "golfModel";
 
