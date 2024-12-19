@@ -7,9 +7,10 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import LoginView from "../views/loginView";
+import userModel from "../userModel";
 import { useNavigate } from "react-router-dom";
 
-const LoginPresenter = observer(({ model }) => {
+const LoginPresenter = observer(() => {
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
   const [errors, setErrors] = useState({});
@@ -18,16 +19,16 @@ const LoginPresenter = observer(({ model }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        model.setUser(user);
+        userModel.setUser(user);
         const redirectPath = sessionStorage.getItem("redirectAfterLogin") || "/";
         sessionStorage.removeItem("redirectAfterLogin");
         navigate(redirectPath);
       } else {
-        model.user = null;
+        userModel.clearUser();
       }
     });
     return () => unsubscribe();
-  }, [auth, model, navigate]);
+  }, [auth, navigate]);
 
   // Handle Google login
   const handleGoogleLogin = async () => {
@@ -38,9 +39,9 @@ const LoginPresenter = observer(({ model }) => {
     }
   };
 
-  // hantera gästinlogg
+  // Handle guest login
   const handleGuestLogin = () => {
-    model.setUserToGuestAccount();
+    userModel.setUserToGuestAccount();
     navigate("/");
   };
 
@@ -48,7 +49,7 @@ const LoginPresenter = observer(({ model }) => {
     <LoginView
       onGoogleLogin={handleGoogleLogin}
       onGuestLogin={handleGuestLogin}
-      isLoggedIn={!!model.user}
+      isLoggedIn={!!userModel.user}
       errors={errors}
     />
   );

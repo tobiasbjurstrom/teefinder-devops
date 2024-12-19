@@ -2,7 +2,6 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import CoursesPresenter from './coursesPresenter';
 import MapPresenter from './mapPresenter';
-import LoginPresenter from './loginPresenter';
 
 
 const ReactRoot = observer(function ReactRoot(props) {
@@ -10,15 +9,28 @@ const ReactRoot = observer(function ReactRoot(props) {
     return <img src="https://brfenergi.se/iprog/loading.gif" alt="Loading" />;
   }
   
+  if (window.clickedCoordinates !== null) {
+    return (
+      <div className="flex-parent"><h1>Teefinder </h1>
+        <div className="main-content">
+          <div className = "maps-content">
+          <MapPresenter model ={props.model}/>
+          <CoursesPresenter model={props.model} />
+          </div>
+       
+      
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="flex-parent"><h1>Teefinder </h1>
       <div className="main-content">
         <div className = "maps-content">
-          <MapPresenter model ={props.model}/>
-          <CoursesPresenter model={props.model}/>
-          <LoginPresenter model={props.model}/>
+        <MapPresenter model ={props.model}/>
+        <CoursesPresenter model={props.model} />
         </div>
-     
     
       </div>
     </div>

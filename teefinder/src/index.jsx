@@ -1,8 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createElement } from "react";
-import { BrowserRouter as Router } from 'react-router-dom';
 import { observable, configure, reaction } from 'mobx';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { ReactRoot } from './reactjs/ReactRoot';
 import LoginPresenter from './reactjs/loginPresenter.jsx';
 
@@ -31,6 +31,5 @@ createRoot(document.getElementById('root'))
 // For debug purposes, do not do this in production!
 window.myModel = reactiveModel;
 connectToFirebase(reactiveModel, reaction);
-
 
 
