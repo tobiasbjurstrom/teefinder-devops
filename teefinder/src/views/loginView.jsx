@@ -1,19 +1,20 @@
 import React from "react";
 import { Button } from "@mui/material";
 
-function LoginView({ onGoogleLogin, onGuestLogin, errors }) {
+function LoginView({ onGoogleLogin, onGuestLogin, errors, user, handleSignOut }) {
   return (
     <div style={{ maxWidth: "360px", margin: "auto", textAlign: "center" }}>
       <h2>Login</h2>
-      <Button
-        fullWidth
-        variant="outlined"
-        style={{ marginBottom: "1rem" }}
-        onClick={onGoogleLogin}
-      >
-        <i className="fa-brands fa-google" style={{ marginRight: "8px" }} />
-        Sign in with Google
-      </Button>
+      <div id="signInDiv" style={{ marginBottom: "1rem" }}></div>
+      {Object.keys(user).length !== 0 && (
+        <>
+          <button onClick={handleSignOut} style={{ marginBottom: "1rem" }}>Sign Out</button>
+          <div>
+            <img src={user.picture} alt="User profile" style={{ borderRadius: "50%", marginBottom: "1rem" }} />
+            <h3>{user.name}</h3>
+          </div>
+        </>
+      )}
       <Button
         fullWidth
         variant="contained"
