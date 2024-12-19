@@ -71,6 +71,7 @@ async function initializeMap(query) {
         console.log(`Clicked coordinates: Latitude: ${clickedLat}, Longitude: ${clickedLng}`);
 
         window.clickedCoordinates = { lat: clickedLat, lng: clickedLng };
+        console.log(window.clickedCoordinates.lat);
     });
 
     let input = document.getElementById("city-search");
