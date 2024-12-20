@@ -9,7 +9,7 @@ export function CoursesView(props) {
     <div>
       <h1>Golf Courses</h1>
       <button onClick= {()=> props.showFavourites() } >show Favourites</button>
-      <ul>
+      <div className='courses-view'>
         {props.model.getCourseNames().map((courseName, index) => (
           <li key={index}>
             <span onClick={() => props.clickOnCourse(courseName)} style={{ cursor: 'pointer', textDecoration: 'underline', color: 'red' }}>
@@ -20,7 +20,7 @@ export function CoursesView(props) {
             <button onClick={() => props.removeFavourite(courseName)}> Remove Favourite</button>
           </li>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

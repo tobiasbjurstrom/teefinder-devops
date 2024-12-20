@@ -8,21 +8,6 @@ const ReactRoot = observer(function ReactRoot(props) {
   if (!props.model.golfCoursesPromiseState.promise) {
     return <img src="https://brfenergi.se/iprog/loading.gif" alt="Loading" />;
   }
-  
-  if (window.clickedCoordinates !== null) {
-    return (
-      <div className="flex-parent"><h1>Teefinder </h1>
-        <div className="main-content">
-          <div className = "maps-content">
-          <MapPresenter model ={props.model}/>
-          <CoursesPresenter model={props.model} />
-          </div>
-       
-      
-        </div>
-      </div>
-    );
-  };
 
   return (
     <div className="flex-parent"><h1>Teefinder </h1>

@@ -100,3 +100,16 @@ code {
 .search-button:hover {
   background-color: #bebebe;
 }
+
+.courses-content{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #acfbe6; /* Light background */
+  opacity: 50;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
