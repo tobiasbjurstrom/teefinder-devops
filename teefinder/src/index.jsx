@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createElement } from "react";
 import { observable, configure, reaction } from 'mobx';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router';
 import { ReactRoot } from './reactjs/ReactRoot';
 import LoginPresenter from './reactjs/loginPresenter.jsx';
 

@@ -5,7 +5,7 @@ import { getDatabase, ref, set, get } from "firebase/database";
 import LoginView from "../views/loginView";
 import { firebaseConfig } from "../firebaseConfig";
 import { initializeApp } from "firebase/app";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
