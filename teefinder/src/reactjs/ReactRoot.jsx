@@ -2,6 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import CoursesPresenter from './coursesPresenter';
 import MapPresenter from './mapPresenter';
+import { Button } from '@mui/material';
 
 
 const ReactRoot = observer(function ReactRoot(props) {
@@ -14,9 +15,10 @@ const ReactRoot = observer(function ReactRoot(props) {
       <div className="main-content">
         <div className = "maps-content">
         <MapPresenter model ={props.model}/>
-        <CoursesPresenter model={props.model} />
         </div>
-    
+        <div className='courses-content'>
+          <CoursesPresenter model={props.model} />
+        </div>
       </div>
     </div>
   );
