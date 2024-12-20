@@ -108,7 +108,7 @@ code {
   padding: 20px;
   max-width: 600px;
   margin: 0 auto;
-  background-color: #acfbe6; /* Light background */
+  background-color: #acfbe6; 
   opacity: 50;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -167,9 +167,9 @@ code {
 }
 
 .courses-view li button:last-child {
-  background-color: #f44336; /* Red */
+  background-color: #009c75; /* Red */
 }
 
 .courses-view li button:last-child:hover {
-  background-color: #e53935;
+  background-color: #00a287;
 }

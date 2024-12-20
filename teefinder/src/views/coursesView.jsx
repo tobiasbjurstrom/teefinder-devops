@@ -15,9 +15,14 @@ export function CoursesView(props) {
             <span onClick={() => props.clickOnCourse(courseName)} style={{ cursor: 'pointer', textDecoration: 'underline', color: 'red' }}>
               {courseName}
             </span>
-            
-            <button onClick={() => props.clickOnFavourites(courseName)} className ="align-right">Add to Favourites</button>
-            <button onClick={() => props.removeFavourite(courseName)}> Remove Favourite</button>
+            <div className="button-group">
+            <button onClick={() => props.clickOnFavourites(courseName)}>
+              Add to Favourites
+            </button>
+            <button onClick={() => props.removeFavourite(courseName)}>
+              Remove Favourite
+            </button>
+          </div>
           </li>
         ))}
       </div>
