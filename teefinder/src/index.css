@@ -52,7 +52,7 @@ code {
 }
 .main-content{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   width: auto;
 
@@ -108,10 +108,8 @@ code {
   padding: 20px;
   max-width: 600px;
   margin: 0 auto;
-  background-color: #acfbe6; 
   opacity: 50;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 .courses-view {
   display: flex;
@@ -159,7 +157,7 @@ code {
 }
 
 .courses-view li button:first-child {
-  background-color: #4caf50; /* Green */
+  background-color: #4caf50;
 }
 
 .courses-view li button:first-child:hover {
@@ -167,9 +165,14 @@ code {
 }
 
 .courses-view li button:last-child {
-  background-color: #009c75; /* Red */
+  background-color: #009c75; 
 }
 
 .courses-view li button:last-child:hover {
   background-color: #00a287;
+}
+.courses-view li .button-group {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
 }
