@@ -2,6 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import CoursesPresenter from './coursesPresenter';
 import MapPresenter from './mapPresenter';
+import LoginPresenter from './loginPresenter';
 
 
 const ReactRoot = observer(function ReactRoot(props) {
@@ -15,6 +16,7 @@ const ReactRoot = observer(function ReactRoot(props) {
         <div className = "maps-content">
         <MapPresenter model ={props.model}/>
         <CoursesPresenter model={props.model} />
+        <LoginPresenter model={props.model} />
         </div>
     
       </div>
