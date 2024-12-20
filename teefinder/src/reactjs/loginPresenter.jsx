@@ -13,7 +13,7 @@ const db = getDatabase(app);
 const LoginPresenter = observer(() => {
   const [user, setUser] = useState(null);
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
+ // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserFromFirebase = async () => {
@@ -66,7 +66,7 @@ const LoginPresenter = observer(() => {
     saveUserToFirebase(guestUser); 
     document.getElementById("signInDiv").hidden = true; 
     console.log("Logged in as guest:", guestUser);
-    navigate("/"); 
+   // navigate("/"); 
   }
 
   function handleSignOut() {
@@ -74,7 +74,7 @@ const LoginPresenter = observer(() => {
     saveUserToFirebase(null); 
     document.getElementById("signInDiv").hidden = false; 
     console.log("User signed out");
-    navigate("/login"); 
+   // navigate("/login"); 
   }
 
   return (
