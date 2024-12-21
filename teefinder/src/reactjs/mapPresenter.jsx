@@ -6,7 +6,7 @@ import MapView from '../views/mapView';
 
 
 const MapPresenter = observer(function MapsRender(props) {
-    
+
     if(!props.model.isMapsLoaded){
       const query = {
         lat: null, //59.3293,
@@ -26,7 +26,7 @@ const MapPresenter = observer(function MapsRender(props) {
     return (
       
         <div className= "map-presenter">
-        <MapView model={props.model} src={props.src} />
+        <MapView />
         <div className="search-container">
         <input 
             id="city-search"
