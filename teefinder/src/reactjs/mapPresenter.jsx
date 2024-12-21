@@ -6,16 +6,16 @@ import MapView from '../views/mapView';
 
 
 const MapPresenter = observer(function MapsRender(props) {
-    const [isLoaded, setIsLoaded] = useState(false);
-    if(!isLoaded){
+
+    if(!props.model.isMapsLoaded){
       const query = {
         lat: null, //59.3293,
         lng: null, //18.0686,
       }
 
     props.model.loadGoogleMaps(query);
-    props.model.initializeMap(query);
-    setIsLoaded(true);
+    props.model.initializeMap();
+    props.model.isMapsLoaded = true;
     }
 
     function handleSearch() {
@@ -26,7 +26,7 @@ const MapPresenter = observer(function MapsRender(props) {
     return (
       
         <div className= "map-presenter">
-        <MapView model={props.model} src={props.src} />
+        <MapView />
         <div className="search-container">
         <input 
             id="city-search"

@@ -8,7 +8,7 @@ export function DetailsView(props) {
         return <div>No course selected</div>;
     }
   return (
-    <div>
+    <div className="details-content">
       <h1>Details</h1>
         <p>Course: {course.club_name}</p>
         <p>Country: {course.country}</p>
@@ -16,7 +16,6 @@ export function DetailsView(props) {
         <p>Address: {course.address}</p>
         <p>Phone: {course.phone}</p>
         <p>Email: {course.email_adress}</p>
-        <button onClick={props.goBack}>Back to Courses</button>
 
     </div>
   );

@@ -25,6 +25,9 @@ const model = observable({
     lat: null,
     lng: null,
   },
+  login: false,
+  userLoggedIn: false,
+  isMapsLoaded: false,
 
   getCourseNames() {
     if (!Array.isArray(this.clubinformation)) {
@@ -64,8 +67,8 @@ const model = observable({
     
     },
 
-    async initializeMap(query) {
-      initializeMap(query);
+    async initializeMap() {
+      initializeMap();
     },
 
 

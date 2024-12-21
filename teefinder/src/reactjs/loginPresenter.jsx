@@ -6,11 +6,12 @@ import LoginView from "../views/loginView";
 import { firebaseConfig } from "../firebaseConfig";
 import { initializeApp } from "firebase/app";
 import { useNavigate } from "react-router";
+import { useThemeProps } from "@mui/material";
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const LoginPresenter = observer(() => {
+const LoginPresenter = observer(function LogInRender(props) {
   const [user, setUser] = useState(null);
   const [errors, setErrors] = useState({});
  // const navigate = useNavigate();
@@ -53,7 +54,10 @@ const LoginPresenter = observer(() => {
       console.log(userObject);
       setUser(userObject);
       saveUserToFirebase(userObject); 
-      document.getElementById("signInDiv").hidden = true; 
+      document.getElementById("signInDiv").hidden = true;
+      props.model.userLoggedIn = true; 
+      props.model.login = false;
+
     } catch (error) {
       console.error("Error decoding token:", error);
       setErrors((prev) => ({ ...prev, google: "Google login failed." }));
@@ -66,6 +70,7 @@ const LoginPresenter = observer(() => {
     saveUserToFirebase(guestUser); 
     document.getElementById("signInDiv").hidden = true; 
     console.log("Logged in as guest:", guestUser);
+    useThemeProps.model.userLoggedIn = true;
    // navigate("/"); 
   }
 
@@ -74,11 +79,14 @@ const LoginPresenter = observer(() => {
     saveUserToFirebase(null); 
     document.getElementById("signInDiv").hidden = false; 
     console.log("User signed out");
+    props.model.userLoggedIn = false;
+    props.model.login = false;
    // navigate("/login"); 
   }
 
   return (
     <LoginView
+      model= {props}
       onGoogleLogin={handleGoogleLogin}
       onGuestLogin={handleGuestLogin}
       errors={errors}

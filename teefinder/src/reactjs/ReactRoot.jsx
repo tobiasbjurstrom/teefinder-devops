@@ -10,24 +10,46 @@ import FavouritesPresenter from './favouritesPresenter';
 const ReactRoot = observer(function ReactRoot(props) {
   if (!props.model.golfCoursesPromiseState.promise) {
     return <img src="https://brfenergi.se/iprog/loading.gif" alt="Loading" />;
+  }   
+
+
+  function onLoginClick(){
+     props.model.login = true;
   }
- 
-  if (props.model.getSelectedCourse()) {
-    return <DetailsPresenter model={props.model} />;
+  function goBackACB() {
+    props.model.login = false;
   }
-  return (
-    <div className="flex-parent"><h1>Teefinder </h1>
+
+return (
+    <div className="flex-parent">
+            <div className="top-header">
+      <h1 className='header-title'>Teefinder</h1>
+      {!props.model.userLoggedIn ? (
+        // Login Button
+        <button className="login-button" onClick={onLoginClick}>
+          Login
+        </button>
+      ) : (
+        // Sign Out Button
+        <button
+          className="sign-out-button"
+          onClick={onLoginClick}
+        >
+          User
+        </button>)}
+    </div>
       <div className="main-content">
         <div className = "maps-content">
-        <MapPresenter model ={props.model}/>
+          <MapPresenter model ={props.model}/></div>
+       {props.model.login && ( <div className="popup">
+        <div className="popup-content">
+          <button className="close-button" onClick={goBackACB}>×</button>
+          <LoginPresenter model={props.model}/>
         </div>
-        <div className='login-content'>
-          <LoginPresenter model={props.model} /></div>
+      </div>
+    )}
         <div className='courses-content'>
-          <CoursesPresenter model={props.model} />
-          
-          <FavouritesPresenter model={props.model} />
-        </div>
+          <CoursesPresenter model={props.model} /></div>
       </div>
     </div>
   );

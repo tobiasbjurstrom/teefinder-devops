@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 
-function LoginView({ onGoogleLogin, onGuestLogin, errors, user, handleSignOut }) {
+function LoginView({ model, onGoogleLogin, onGuestLogin, errors, user, handleSignOut }) {
   const isUserLoggedIn = user && Object.keys(user).length > 0;
 
   return (

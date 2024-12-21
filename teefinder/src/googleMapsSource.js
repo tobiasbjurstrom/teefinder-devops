@@ -17,14 +17,6 @@ function urlBuilder() {
     return url;
 }
 
-function handleResponse(response) {
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    console.log(response)
-    return response;
-}
-
 async function fetchGoogleMaps() {
     const url = urlBuilder();
     console.log('fetching:')
@@ -44,7 +36,7 @@ async function fetchGoogleMaps() {
         throw error;
         }
 }
-async function initializeMap(query) {
+async function initializeMap() {
 
     if(window.position ==null){
         position = { lat: 59.3293, lng: 18.0686 };
