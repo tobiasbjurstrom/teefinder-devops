@@ -22,9 +22,6 @@ const CoursesPresenter = observer(function CoursesRender(props) {
     setSelectedFavourite(null);
   }
 
-
-
-
   function clickOnFavouritesACB(courseName) {
     const course = props.model.clubinformation.find(club => club.club_name === courseName);
     if (course && !props.model.favourites.some(fav => fav.club_name === courseName)) {
@@ -33,8 +30,6 @@ const CoursesPresenter = observer(function CoursesRender(props) {
     }
   }
     
-
-
   function showFavouritesACB(){
     setSelectedFavourite(true);
   }
@@ -64,11 +59,7 @@ const CoursesPresenter = observer(function CoursesRender(props) {
   else if (!props.model.golfCoursesPromiseState.data) {
     return <img src="https://brfenergi.se/iprog/loading.gif" alt="Loading" />;
   }
-  if (selectedCourse) {
-    return <DetailsPresenter 
-    model={props.model} 
-    goBack={goBackACB} />;
-  }
+
   if(selectedFavourite) {
     return <FavouritesPresenter 
     model={props.model} 
@@ -84,7 +75,15 @@ const CoursesPresenter = observer(function CoursesRender(props) {
     clickOnFavourites={clickOnFavouritesACB}
     showFavourites={showFavouritesACB}
     removeFavourite={removeFavouriteACB}
-    />
+    /> 
+     {selectedCourse && (
+      <div className="popup">
+        <div className="popup-content">
+          <button className="close-button" onClick={goBackACB}>×</button>
+          <DetailsPresenter model={props.model} goBack={goBackACB} />
+        </div>
+      </div>
+    )}
       
     </div>
     
