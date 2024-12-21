@@ -8,22 +8,10 @@ import { toJS } from 'mobx';
 
 const CoursesPresenter = observer(function CoursesRender(props) {
 
-  const [selectedCourse, setSelectedCourse] = useState(null); //details
-  const [selectedFavourite, setSelectedFavourite] = useState(null); //favourites
-
 
   function clickOnCourseACB(courseName) {
     props.model.setSelectedCourse(courseName);
-    setSelectedCourse(courseName);
   }
-
-  function goBackACB() {
-    setSelectedCourse(null);
-    setSelectedFavourite(null);
-  }
-
-
-
 
   function clickOnFavouritesACB(courseName) {
     const course = props.model.clubinformation.find(club => club.club_name === courseName);
@@ -31,12 +19,6 @@ const CoursesPresenter = observer(function CoursesRender(props) {
       props.model.addToFavourites(course);
       console.log('Current favourites:', toJS(props.model.favourites.slice()));
     }
-  }
-    
-
-
-  function showFavouritesACB(){
-    setSelectedFavourite(true);
   }
 
   function removeFavouriteACB(courseName) {
@@ -64,25 +46,13 @@ const CoursesPresenter = observer(function CoursesRender(props) {
   else if (!props.model.golfCoursesPromiseState.data) {
     return <img src="https://brfenergi.se/iprog/loading.gif" alt="Loading" />;
   }
-  if (selectedCourse) {
-    return <DetailsPresenter 
-    model={props.model} 
-    goBack={goBackACB} />;
-  }
-  if(selectedFavourite) {
-    return <FavouritesPresenter 
-    model={props.model} 
-    goBack={goBackACB}
-    
-    />;
-  }
+
   return (
     <div>
     <CoursesView 
     model={props.model} 
     clickOnCourse={clickOnCourseACB}
     clickOnFavourites={clickOnFavouritesACB}
-    showFavourites={showFavouritesACB}
     removeFavourite={removeFavouriteACB}
     />
       

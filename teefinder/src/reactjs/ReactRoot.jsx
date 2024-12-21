@@ -3,13 +3,18 @@ import { observer } from 'mobx-react-lite';
 import CoursesPresenter from './coursesPresenter';
 import MapPresenter from './mapPresenter';
 import LoginPresenter from './loginPresenter';
+import DetailsPresenter from './detailsPresenter';
+import FavouritesPresenter from './favouritesPresenter';
 
 
 const ReactRoot = observer(function ReactRoot(props) {
   if (!props.model.golfCoursesPromiseState.promise) {
     return <img src="https://brfenergi.se/iprog/loading.gif" alt="Loading" />;
   }
-
+ 
+  if (props.model.getSelectedCourse()) {
+    return <DetailsPresenter model={props.model} />;
+  }
   return (
     <div className="flex-parent"><h1>Teefinder </h1>
       <div className="main-content">
@@ -20,7 +25,8 @@ const ReactRoot = observer(function ReactRoot(props) {
           <LoginPresenter model={props.model} /></div>
         <div className='courses-content'>
           <CoursesPresenter model={props.model} />
-        
+          
+          <FavouritesPresenter model={props.model} />
         </div>
       </div>
     </div>

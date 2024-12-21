@@ -2,7 +2,8 @@ import React from "react";
 
 
 export function DetailsView(props) {
-    const course = props.model.getSelectedCourse();
+    const course = props.getCourse();
+
     if (!course) {
         return <div>No course selected</div>;
     }

@@ -46,6 +46,8 @@ const model = observable({
 
   addToFavourites(course) {
     this.favourites.push(course);
+    this.favourites = observable.array(this.favourites.slice()); // Ensure MobX notices the change
+
   },
 
   removeFavourite(course) {
