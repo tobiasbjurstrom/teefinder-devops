@@ -51,6 +51,15 @@ return (
         <div className='courses-content'>
           <CoursesPresenter model={props.model} /></div>
       </div>
+      {props.model.selectedCourse && (
+      <div className="popup">
+        <div className="popup-content">
+          <button className="close-button" onClick={goBackACB}>×</button>
+          <DetailsPresenter model={props.model} goBack={goBackACB} />
+        </div>
+      </div>
+    )}
+      
     </div>
   );
 });

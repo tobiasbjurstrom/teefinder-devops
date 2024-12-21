@@ -28,6 +28,7 @@ const model = observable({
   login: false,
   userLoggedIn: false,
   isMapsLoaded: false,
+  selectedCourse: null,
 
   getCourseNames() {
     if (!Array.isArray(this.clubinformation)) {

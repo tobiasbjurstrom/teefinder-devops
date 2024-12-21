@@ -48,22 +48,14 @@ const CoursesPresenter = observer(function CoursesRender(props) {
   }
 
   return (
-    <div>
+    <div className = 'courses-content'>
     <CoursesView 
     model={props.model} 
     clickOnCourse={clickOnCourseACB}
     clickOnFavourites={clickOnFavouritesACB}
     removeFavourite={removeFavouriteACB}
     /> 
-     {selectedCourse && (
-      <div className="popup">
-        <div className="popup-content">
-          <button className="close-button" onClick={goBackACB}>×</button>
-          <DetailsPresenter model={props.model} goBack={goBackACB} />
-        </div>
-      </div>
-    )}
-      
+
     </div>
     
   );

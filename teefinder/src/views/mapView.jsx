@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-const MapView = ({ model, src }) => {
+const MapView = ({ }) => {
   
   
   return (
