@@ -25,18 +25,19 @@ return (
             <div className="top-header">
       <h1 className='header-title'>Teefinder</h1>
       {!props.model.userLoggedIn ? (
-        // Login Button
         <button className="login-button" onClick={onLoginClick}>
           Login
         </button>
       ) : (
-        // Sign Out Button
-        <button
-          className="sign-out-button"
-          onClick={onLoginClick}
-        >
-          User
-        </button>)}
+        <><button
+            className='favorites'
+            onClick={""}
+          > Favorites </button><button
+            className="sign-out-button"
+            onClick={onLoginClick}
+          >
+              User
+            </button></>)}
     </div>
       <div className="main-content">
         <div className = "maps-content">

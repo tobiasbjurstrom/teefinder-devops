@@ -55,9 +55,7 @@ const CoursesPresenter = observer(function CoursesRender(props) {
     clickOnFavourites={clickOnFavouritesACB}
     removeFavourite={removeFavouriteACB}
     /> 
-
     </div>
-    
   );
 });
 
