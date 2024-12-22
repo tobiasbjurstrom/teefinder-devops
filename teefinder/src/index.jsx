@@ -14,8 +14,11 @@ import { getDatabase, ref, set, get } from "firebase/database";
 import { connectToFirebase } from './firebaseModel.js';
 configure({ enforceActions: 'never' }); // we don't use MobX actions
 
-window.React= {createElement:createElement};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+export { app, db };
 
+window.React= {createElement:createElement};
 
 // Make the model reactive
 const reactiveModel = observable(model);

@@ -7,7 +7,11 @@ function LoginView({ model, onGoogleLogin, onGuestLogin, errors, user, handleSig
   return (
     <div style={{ maxWidth: "360px", margin: "auto", textAlign: "center" }}>
       <h2>Login</h2>
-      <div id="signInDiv" style={{ marginBottom: "1rem" }}></div>
+
+      {!isUserLoggedIn && (
+        <div id="signInDiv" style={{ marginBottom: "1rem" }}></div>
+      )}
+
       {isUserLoggedIn && (
         <>
           <button onClick={handleSignOut} style={{ marginBottom: "1rem" }}>
@@ -23,6 +27,7 @@ function LoginView({ model, onGoogleLogin, onGuestLogin, errors, user, handleSig
           </div>
         </>
       )}
+
       {!isUserLoggedIn && (
         <Button
           fullWidth
@@ -35,6 +40,7 @@ function LoginView({ model, onGoogleLogin, onGuestLogin, errors, user, handleSig
           Sign in as Guest
         </Button>
       )}
+      
       {errors?.google && (
         <p style={{ color: "red", marginTop: "1rem" }}>{errors.google}</p>
       )}

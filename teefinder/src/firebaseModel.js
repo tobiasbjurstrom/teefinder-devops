@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, get, set } from "firebase/database";
+import { getDatabase, ref, get, set, onValue} from "firebase/database";
 import { firebaseConfig } from "./firebaseConfig";
 import { fetchGolfCourses } from "./golfCourseSource"; 
-
+import { jwtDecode } from "jwt-decode";
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -10,6 +10,7 @@ const usersRef = ref(db, "users");
 
 const PATH = "golfModel";
 
+let googleInitialized = false;
 
 function modelToPersistence(model) {
   return {
@@ -60,4 +61,65 @@ function connectToFirebase(model, watchFunction) {
   watchFunction(isValidChangeACB, onValidACB);
 }
 
-export { connectToFirebase, modelToPersistence, persistenceToModel, saveToFirebase, readFromFirebase };
+function saveUserToFirebase(userData) {
+  if (!userData || !userData.id) {
+    console.log("No user data to save. Skipping Firebase save.");
+    return Promise.resolve();
+  }
+
+  const userRef = ref(db, `users/${userData.id}`);
+  console.log("Saving user to Firebase:", userData);
+  return set(userRef, userData);
+}
+
+function fetchAllUsersFromFirebase(callback) {
+  const usersRef = ref(db, "users");
+  onValue(usersRef, (snapshot) => {
+    const data = snapshot.val();
+    callback(data || {});
+  });
+}
+
+function decodeGoogleToken(token) {
+  try {
+    return jwtDecode(token);
+  } catch (error) {
+    console.error("Error decoding token:", error);
+    throw new Error("Invalid token");
+  }
+}
+
+function initializeGoogleLogin(callback) {
+  if (googleInitialized) return;
+  googleInitialized = true;
+
+  /* global google */
+  google.accounts.id.initialize({
+    client_id: "1045087013406-e8n8tcn3ibcdvq5o4heh17p5qg1h805d.apps.googleusercontent.com",
+    callback,
+  });
+}
+
+function renderGoogleButton() {
+  const signInDiv = document.getElementById("signInDiv");
+  if (signInDiv) {
+    google.accounts.id.renderButton(signInDiv, {
+      theme: "outline",
+      size: "large",
+    });
+  }
+}
+
+export { 
+  connectToFirebase, 
+  modelToPersistence, 
+  persistenceToModel, 
+  saveToFirebase, 
+  readFromFirebase,
+  saveUserToFirebase,
+  fetchAllUsersFromFirebase,
+  decodeGoogleToken, 
+  db,
+  initializeGoogleLogin,
+  renderGoogleButton,
+};
