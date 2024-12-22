@@ -1,9 +1,9 @@
 import React from "react";
 import { Button } from "@mui/material";
 
-function LoginView({ model, onGoogleLogin, onGuestLogin, errors, user, handleSignOut }) {
+function LoginView({ props, onGoogleLogin, onGuestLogin, errors, user, handleSignOut }) {
   const isUserLoggedIn = user && Object.keys(user).length > 0;
-
+  console.log("View: " + isUserLoggedIn);
   return (
     <div style={{ maxWidth: "360px", margin: "auto", textAlign: "center" }}>
       <h2>Login</h2>

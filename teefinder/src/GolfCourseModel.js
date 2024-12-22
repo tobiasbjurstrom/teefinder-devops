@@ -5,7 +5,7 @@ import { observable } from 'mobx';
 import { fetchGoogleMaps, initializeMap } from './googleMapsSource';
 import { saveUserToFirebase, fetchAllUsersFromFirebase, decodeGoogleToken } from './firebaseModel.js';
 import { ref, get } from "firebase/database";
-import { db } from "./firebaseModel";
+import { db, renderGoogleButton, initializeGoogleLogin} from "./firebaseModel";
 
 const model = observable({
   clubinformation: [],
@@ -37,6 +37,8 @@ const model = observable({
     users: {},
     currentUser: null,
     errors: {},
+    isInitialized: false,
+    isLoaded:false,
 
     setCurrentUser(user) {
       this.currentUser = user;
@@ -72,6 +74,9 @@ const model = observable({
         this.setCurrentUser(userObject);
         localStorage.setItem("loggedInUserId", userObject.id);
         await saveUserToFirebase(userObject);
+        model.login = false;
+        model.userLoggedIn = true;
+        console.log("logged in: " + this.userLoggedIn)
       } catch (error) {
         this.setErrors("google", "Google login failed.");
       }
@@ -84,21 +89,40 @@ const model = observable({
       };
       this.setCurrentUser(guestUser);
       localStorage.setItem("loggedInUserId", guestUser.id);
+      model.login = false;
+      model.userLoggedIn = true;
+      console.log("logged in: " + model.userLoggedIn)
       await saveUserToFirebase(guestUser);
     },
 
     handleSignOut() {
       this.setCurrentUser(null);
+      model.login = false;
+      model.userLoggedIn = false;
+      this.isInitialized = false;
       localStorage.removeItem("loggedInUserId");
-      //saveUserToFirebase(null);
     },
 
     fetchAllUsers() {
+      if (this.isInitialized) return;
       fetchAllUsersFromFirebase((data) => {
         this.users = data;
       });
     },
+
+  async initializeLogin() {
+    if (this.isInitialized) return;
+    await this.fetchAllUsers();
+    await this.reloadCurrentUser();
+    initializeGoogleLogin((response) => (this.handleGoogleLogin(response)));
+    renderGoogleButton();
   },
+  async checkAndRenderGoogleButton() {
+    if (!this.currentUser) {
+       renderGoogleButton();
+    }
+  },
+},
 
   getCourseNames() {
     if (!Array.isArray(this.clubinformation)) {

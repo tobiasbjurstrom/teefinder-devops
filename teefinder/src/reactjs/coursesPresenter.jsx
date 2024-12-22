@@ -11,7 +11,6 @@ const CoursesPresenter = observer(function CoursesRender(props) {
 
   function clickOnCourseACB(event) {
     props.model.setSelectedCourse(event);
-    console.log(event);
     props.onCourseClick(event);
   }
 

@@ -17,6 +17,7 @@ const ReactRoot = observer(function ReactRoot(props) {
   }
   function goBackACB() {
     props.model.login = false;
+    props.model.loginStore.isInitialized = false;
   }
 
   function goBackDetailsACB(){

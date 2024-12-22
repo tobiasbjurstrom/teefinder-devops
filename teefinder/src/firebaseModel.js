@@ -90,24 +90,26 @@ function decodeGoogleToken(token) {
 }
 
 function initializeGoogleLogin(callback) {
-  if (googleInitialized) return;
-  googleInitialized = true;
-
   /* global google */
   google.accounts.id.initialize({
     client_id: "1045087013406-e8n8tcn3ibcdvq5o4heh17p5qg1h805d.apps.googleusercontent.com",
     callback,
   });
+  console.log("google init")
 }
 
 function renderGoogleButton() {
   const signInDiv = document.getElementById("signInDiv");
-  if (signInDiv) {
-    google.accounts.id.renderButton(signInDiv, {
-      theme: "outline",
-      size: "large",
-    });
+  if (!signInDiv) {
+    console.warn("Sign-in div not found. Retrying...");
+    setTimeout(renderGoogleButton, 100); // Retry after 100ms
+    return;
   }
+
+  google.accounts.id.renderButton(signInDiv, {
+    theme: "outline",
+    size: "large",
+  });
 }
 
 export { 

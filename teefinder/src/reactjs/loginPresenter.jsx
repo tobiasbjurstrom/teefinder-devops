@@ -6,27 +6,24 @@ import { initializeGoogleLogin, renderGoogleButton } from "../firebaseModel";
 
 const loginStore = model.loginStore;
 
-const LoginPresenter = observer(() => {
-  useEffect(() => {
-    loginStore.fetchAllUsers();
-    loginStore.reloadCurrentUser();
+const LoginPresenter = observer(function LoginRender(props) {
 
-    initializeGoogleLogin((response) => loginStore.handleGoogleLogin(response));
-    renderGoogleButton();
-  }, []);
-
-  useEffect(() => {
-    if (!loginStore.currentUser) {
-      renderGoogleButton(); 
-    }
-  }, [loginStore.currentUser]);
+if (!props.model.loginStore.isLoaded){
+    props.model.loginStore.initializeLogin();
+    console.log("inti: ")
+    props.model.loginStore.isLoaded = true;
+}
+if (!props.model.loginStore.currentUser){
+    props.model.loginStore.checkAndRenderGoogleButton();
+}
 
   return (
     <LoginView
-      onGoogleLogin={loginStore.handleGoogleLogin.bind(loginStore)}
-      onGuestLogin={loginStore.handleGuestLogin.bind(loginStore)}
+    model = {props.model}
+      onGoogleLogin={props.model.loginStore.handleGoogleLogin.bind(loginStore)}
+      onGuestLogin={props.model.loginStore.handleGuestLogin.bind(loginStore)}
       errors={loginStore.errors}
-      user={loginStore.currentUser}
+      user={props.model.loginStore.currentUser}
       handleSignOut={loginStore.handleSignOut.bind(loginStore)}
     />
   );
