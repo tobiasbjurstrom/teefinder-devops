@@ -34,6 +34,7 @@ const ReactRoot = observer(function ReactRoot(props) {
   }
   function handleCourseClickACB(event){
     props.model.setSelectedCourse(event);
+    console.log(event);
   }
 
 return (
