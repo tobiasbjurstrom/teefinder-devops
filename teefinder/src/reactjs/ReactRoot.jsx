@@ -12,12 +12,18 @@ const ReactRoot = observer(function ReactRoot(props) {
     return <img src="https://brfenergi.se/iprog/loading.gif" alt="Loading" />;
   }   
 
-
   function onLoginClick(){
      props.model.login = true;
   }
   function goBackACB() {
     props.model.login = false;
+  }
+
+  function goBackDetailsACB(){
+    props.model.setSelectedCourse(null);
+  }
+  function handleCourseClickACB(event){
+    props.model.setSelectedCourse(event);
   }
 
 return (
@@ -50,13 +56,15 @@ return (
       </div>
     )}
         <div className='courses-content'>
-          <CoursesPresenter model={props.model} /></div>
+          <CoursesPresenter 
+          model={props.model}
+          onCourseClick={handleCourseClickACB} /></div>
       </div>
       {props.model.selectedCourse && (
       <div className="popup">
         <div className="popup-content">
-          <button className="close-button" onClick={goBackACB}>×</button>
-          <DetailsPresenter model={props.model} goBack={goBackACB} />
+          <button className="close-button" onClick={goBackDetailsACB}>×</button>
+          <DetailsPresenter model={props.model} />
         </div>
       </div>
     )}

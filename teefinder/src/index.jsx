@@ -33,7 +33,5 @@ createRoot(document.getElementById('root'))
 
 // For debug purposes, do not do this in production!
 window.myModel = reactiveModel;
-connectToFirebase(reactiveModel, reaction);
-//const app = initializeApp(firebaseConfig);
-//const db = getDatabase(app);
+//connectToFirebase(reactiveModel, reaction);
 

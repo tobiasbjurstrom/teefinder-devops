@@ -9,8 +9,10 @@ import { toJS } from 'mobx';
 const CoursesPresenter = observer(function CoursesRender(props) {
 
 
-  function clickOnCourseACB(courseName) {
-    props.model.setSelectedCourse(courseName);
+  function clickOnCourseACB(event) {
+    props.model.setSelectedCourse(event);
+    console.log(event);
+    props.onCourseClick(event);
   }
 
   function clickOnFavouritesACB(courseName) {

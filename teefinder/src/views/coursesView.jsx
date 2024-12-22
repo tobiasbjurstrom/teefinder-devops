@@ -2,7 +2,7 @@ import React from 'react';
 import '../index.css';
 
 
-export function CoursesView(props) {
+export function CoursesView( props ) {
   
   return (
     
@@ -12,7 +12,7 @@ export function CoursesView(props) {
       <div className='courses-view'>
         {props.model.getCourseNames().map((courseName, index) => (
           <li key={index}>
-            <span onClick={() => props.clickOnCourse(courseName)} style={{ cursor: 'pointer', textDecoration: 'underline', color: 'red' }}>
+            <span onClick={() => props.clickOnCourse(courseName)}>
               {courseName}
             </span>
             <div className="button-group">
