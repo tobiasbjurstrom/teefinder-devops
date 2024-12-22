@@ -34,9 +34,8 @@ const CoursesPresenter = observer(function CoursesRender(props) {
     } else {
       console.log('Course not found in favourites:', courseName);
     }
+
   }
-
-
 
   if (!props.model.golfCoursesPromiseState.promise) {
     return <div>No data</div>;

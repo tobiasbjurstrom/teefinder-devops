@@ -171,12 +171,6 @@ const model = observable({
       initializeMap();
     },
 
-
-    getSrcURL() {
-      return this.src.url;
-    },
-
-
    loadCourses() {
     console.log('Loading courses...');
     const prms = fetchGolfCourses();
@@ -184,9 +178,6 @@ const model = observable({
     prms.then((data) => {
       this.clubinformation = data || [];
       console.log('Data:', data);
-
-
-
     }).catch(error => {
       console.error('Error:', error);
     });

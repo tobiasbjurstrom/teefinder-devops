@@ -3,7 +3,7 @@ import '../index.css';
 
 
 export function CoursesView( props ) {
-  
+    
   return (
     
     <div>
@@ -14,13 +14,13 @@ export function CoursesView( props ) {
               {courseName}
             </span>
             <div className="button-group">
-            <button onClick={() => props.clickOnFavourites(courseName)}>
-              Add to Favourites
-            </button>
-            <button onClick={() => props.removeFavourite(courseName)}>
-              Remove Favourite
-            </button>
-          </div>
+                <button onClick={() => props.removeFavourite(courseName)}>
+                  Remove from Favourites
+                </button>
+                <button onClick={() => props.clickOnFavourites(courseName)}>
+                  Add to Favourites
+                </button>
+            </div>
           </li>
         ))}
       </div>
