@@ -74,9 +74,19 @@ function saveUserToFirebase(userData) {
 
 function fetchAllUsersFromFirebase(callback) {
   const usersRef = ref(db, "users");
-  onValue(usersRef, (snapshot) => {
-    const data = snapshot.val();
-    callback(data || {});
+  get(usersRef)
+  .then((snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();  // Get the data from the snapshot
+      callback(data || {});  // Call the callback with the data
+    } else {
+      console.log("No data found");
+      callback({});  // If no data found, pass an empty object
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);  // Handle any errors
+    callback({});  // Return an empty object in case of error
   });
 }
 
