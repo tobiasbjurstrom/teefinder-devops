@@ -99,28 +99,31 @@ function decodeGoogleToken(token) {
   }
 }
 
-function initializeGoogleLogin(callback) {
+async function initializeGoogleLogin(callback) {
   /* global google */
-  google.accounts.id.initialize({
+ google.accounts.id.initialize({
     client_id: "1045087013406-e8n8tcn3ibcdvq5o4heh17p5qg1h805d.apps.googleusercontent.com",
     callback,
   });
   console.log("google init")
 }
 
-function renderGoogleButton() {
-  const signInDiv = document.getElementById("signInDiv");
-  if (!signInDiv) {
-    console.warn("Sign-in div not found. Retrying...");
- // Retry after 100ms
-    return;
+async function renderGoogleButton() {
+    const checkForSignInDiv = () => {
+      const signInDiv = document.getElementById("signInDiv");
+      if (signInDiv) {
+        google.accounts.id.renderButton(signInDiv, {
+          theme: "outline",
+          size: "large",
+        });
+        clearInterval(intervalId);  
+      } else {
+        console.warn("Sign-in div not found. Retrying...");
+      }
+    };
+    const intervalId = setInterval(checkForSignInDiv, 500);
   }
 
-  google.accounts.id.renderButton(signInDiv, {
-    theme: "outline",
-    size: "large",
-  });
-}
 
 export { 
   connectToFirebase, 

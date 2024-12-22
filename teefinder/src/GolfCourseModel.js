@@ -117,10 +117,12 @@ const model = observable({
 
   async initializeLogin() {
     if (this.isInitialized) return;
+    console.log("init: ")
     await this.fetchAllUsers();
     await this.reloadCurrentUser();
-    initializeGoogleLogin((response) => (this.handleGoogleLogin(response)));
-    renderGoogleButton();
+    await initializeGoogleLogin((response) => (this.handleGoogleLogin(response)));
+    await renderGoogleButton();
+    this.initializeLogin = false;
   },
   async checkAndRenderGoogleButton() {
     if (!this.currentUser) {
