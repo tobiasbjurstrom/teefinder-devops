@@ -1,9 +1,8 @@
 import "../index.css";
 
-function ReviewForm({ courseId, userId, userName, onSubmit }) {
+function ReviewForm(props, courseId, userId, userName ) {
  
   let rating = 0;
-  //let reviewText = "";
   let hoverRating = null;
 
   const form = document.createElement("form");
@@ -26,7 +25,7 @@ function ReviewForm({ courseId, userId, userName, onSubmit }) {
       alert("Please select a rating between 1 and 5 stars.");
       return;
     }
-    onSubmit(courseId, userId, userName, rating);
+    props.model.addReview(courseId, userId, userName, rating);
     rating = 0;
     hoverRating = null;
     //reviewText = "";
@@ -47,10 +46,6 @@ function ReviewForm({ courseId, userId, userName, onSubmit }) {
   const handleStarMouseLeave = () => {
     hoverRating = null;
     updateStars();
-  };
-
-  function handleTextChangeACB(){
-   // reviewText = textarea.value;  
   };
 
   const starsContainer = document.createElement("div");
@@ -111,12 +106,3 @@ function ReviewForm({ courseId, userId, userName, onSubmit }) {
 }
 
 export default ReviewForm;
-
-      /*<textarea
-        id="reviewText"
-        placeholder="Write your review here..."
-        value={reviewText}
-        onChange={handleTextChangeACB}
-        rows={4}
-        style={{ width: "100%", marginTop: "10px" }}
-      />*/

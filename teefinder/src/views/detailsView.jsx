@@ -2,8 +2,8 @@ import React from "react";
 import ReviewForm from "../views/reviewForm";
 import ReviewList from "../views/reviewList";
 
-export function DetailsView( props, { course, reviews, userId, userName, onAddReview } ) {
-
+export function DetailsView( props, { reviews, userId, userName, onAddReview } ) {
+  console.log(props.model.reviews);
   const course = props.getCourse();
 
   if (!course) {
@@ -21,14 +21,14 @@ return (
 
 
       <ReviewForm
+        model={props.model}
         courseId={course.club_name}
-        userId={userId}
-        userName={userName}
-        onSubmit={onAddReview}
+        userId={props.model.reviews.userId}
+        userName={props.model.reviews.userName}
       />
       <div className="reviews-section">
 
-        <ReviewList reviews={reviews} />
+        <ReviewList reviews={props.model.reviews} />
       </div>
 
   
