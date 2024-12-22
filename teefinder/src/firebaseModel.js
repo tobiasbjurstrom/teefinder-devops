@@ -102,7 +102,7 @@ function renderGoogleButton() {
   const signInDiv = document.getElementById("signInDiv");
   if (!signInDiv) {
     console.warn("Sign-in div not found. Retrying...");
-    setTimeout(renderGoogleButton, 100); // Retry after 100ms
+ // Retry after 100ms
     return;
   }
 

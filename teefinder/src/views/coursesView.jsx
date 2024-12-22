@@ -7,8 +7,6 @@ export function CoursesView( props ) {
   return (
     
     <div>
-      <h1>Golf Courses</h1>
-      <button onClick= {()=> props.showFavourites() } >show Favourites</button>
       <div className='courses-view'>
         {props.model.getCourseNames().map((courseName, index) => (
           <li key={index}>

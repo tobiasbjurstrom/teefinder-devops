@@ -31,6 +31,7 @@ const model = observable({
   login: false,
   userLoggedIn: false,
   isMapsLoaded: false,
+  loadFavourites: false,
 
 
   loginStore: {
@@ -42,6 +43,7 @@ const model = observable({
 
     setCurrentUser(user) {
       this.currentUser = user;
+      model.userLoggedIn = true;
     },
 
     setErrors(errorType, errorMessage) {
@@ -50,10 +52,13 @@ const model = observable({
 
     reloadCurrentUser() {
       const loggedInUserId = localStorage.getItem("loggedInUserId");
+      
       if (!loggedInUserId) {
         console.log("No logged-in user found in local storage.");
+        model.userLoggedIn = false;
         return;
       }
+      model.userLoggedIn = true;
     
       const userRef = ref(db, `users/${loggedInUserId}`);
       get(userRef).then((snapshot) => {

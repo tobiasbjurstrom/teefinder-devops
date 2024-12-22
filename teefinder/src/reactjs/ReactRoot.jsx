@@ -11,15 +11,24 @@ const ReactRoot = observer(function ReactRoot(props) {
   if (!props.model.golfCoursesPromiseState.promise) {
     return <img src="https://brfenergi.se/iprog/loading.gif" alt="Loading" />;
   }   
-
+  props.model.loginStore.reloadCurrentUser();
   function onLoginClick(){
      props.model.login = true;
+  }
+  function onSignOutClick(){
+    props.model.loginStore.handleSignOut();
   }
   function goBackACB() {
     props.model.login = false;
     props.model.loginStore.isInitialized = false;
   }
 
+  function onFavouriteClick(){
+    props.model.loadFavourites = true;
+  }
+  function goBackFavorutiteClickACB(){
+    props.model.loadFavourites = false;
+  }
   function goBackDetailsACB(){
     props.model.setSelectedCourse(null);
   }
@@ -37,13 +46,14 @@ return (
         </button>
       ) : (
         <><button
-            className='favorites'
-            onClick={""}
-          > Favorites </button><button
+            className='favorite-button'
+            onClick={onFavouriteClick}
+          > Favorites </button>
+          <button
             className="sign-out-button"
-            onClick={onLoginClick}
+            onClick={onSignOutClick}
           >
-              User
+              Sign Out
             </button></>)}
     </div>
       <div className="main-content">
@@ -66,6 +76,14 @@ return (
         <div className="popup-content">
           <button className="close-button" onClick={goBackDetailsACB}>×</button>
           <DetailsPresenter model={props.model} />
+        </div>
+      </div>
+    )}
+      {props.model.loadFavourites && (
+      <div className="popup">
+        <div className="popup-content">
+          <button className="close-button" onClick={goBackFavorutiteClickACB}>×</button>
+          <FavouritesPresenter model={props.model} />
         </div>
       </div>
     )}

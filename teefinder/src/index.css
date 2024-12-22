@@ -261,10 +261,10 @@ code {
   transition: background-color 0.3s;
   z-index: 10;
 }
-.favorites{
+.favorite-button{
   position: fixed;
   top: 20px;
-  right: 80px;
+  right: 110px;
   background-color: #1edcad;
   color: #fff;
   border: none;

@@ -11,7 +11,6 @@ export function FavouritesView(props){
           </li>
         ))}
       </ul>
-      <button onClick={props.goBack}>Back to Courses</button>
     </div>
   );
 };
