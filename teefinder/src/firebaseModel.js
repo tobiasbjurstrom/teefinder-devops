@@ -125,6 +125,27 @@ async function renderGoogleButton() {
   }
 
 
+  function saveReview(courseId, userId, reviewData) {
+    const reviewRef = ref(db, `reviews/${courseId}/${userId}`);
+    return set(reviewRef, reviewData);
+  }
+
+  function fetchCourseReviews(courseId, callback) {
+    const courseReviewsRef = ref(db, `reviews/${courseId}`);
+    onValue(courseReviewsRef, (snapshot) => {
+      const reviews = snapshot.val();
+      callback(reviews || {});
+    });
+  }
+  
+  function fetchUserReview(courseId, userId, callback) {
+    const userReviewRef = ref(db, `reviews/${courseId}/${userId}`);
+    get(userReviewRef).then((snapshot) => {
+      callback(snapshot.val());
+    });
+  }
+  
+
 export { 
   connectToFirebase, 
   modelToPersistence, 
@@ -137,4 +158,7 @@ export {
   db,
   initializeGoogleLogin,
   renderGoogleButton,
+  saveReview,
+  fetchCourseReviews,
+  fetchUserReview,
 };

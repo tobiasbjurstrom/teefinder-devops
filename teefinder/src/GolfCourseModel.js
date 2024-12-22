@@ -5,13 +5,21 @@ import { observable } from 'mobx';
 import { fetchGoogleMaps, initializeMap } from './googleMapsSource';
 import { saveUserToFirebase, fetchAllUsersFromFirebase, decodeGoogleToken } from './firebaseModel.js';
 import { ref, get } from "firebase/database";
-import { db, renderGoogleButton, initializeGoogleLogin} from "./firebaseModel";
+import { 
+  db, 
+  renderGoogleButton, 
+  initializeGoogleLogin, 
+  saveReview, 
+  fetchCourseReviews, 
+  fetchUserReview
+} from "./firebaseModel";
 
 const model = observable({
   clubinformation: [],
   favourites: [],
   selectedCourse: null,
-    golfCoursesPromiseState: {
+  reviews: {},
+  golfCoursesPromiseState: {
     promise: null,
     data: null,
     error: null
@@ -115,21 +123,48 @@ const model = observable({
       });
     },
 
-  async initializeLogin() {
-    if (this.isInitialized) return;
-    console.log("init: ")
-    await this.fetchAllUsers();
-    await this.reloadCurrentUser();
-    await initializeGoogleLogin((response) => (this.handleGoogleLogin(response)));
-    await renderGoogleButton();
-    this.initializeLogin = false;
+    async initializeLogin() {
+      if (this.isInitialized) return;
+      console.log("init: ")
+      await this.fetchAllUsers();
+      await this.reloadCurrentUser();
+      await initializeGoogleLogin((response) => (this.handleGoogleLogin(response)));
+      await renderGoogleButton();
+      this.initializeLogin = false;
+    },
+
+    async checkAndRenderGoogleButton() {
+      if (!this.currentUser) {
+          renderGoogleButton();
+      }
+    },
   },
-  async checkAndRenderGoogleButton() {
-    if (!this.currentUser) {
-       renderGoogleButton();
-    }
+
+  async addReview(courseId, userId, userName, rating, reviewText) {
+    const timestamp = new Date().toISOString();
+    const reviewData = { rating, reviewText, userName, timestamp };
+    await saveReview(courseId, userId, reviewData);
+    console.log("Review saved for course:", courseId);
+    this.loadCourseReviews(courseId);
   },
-},
+
+  loadCourseReviews(courseId, callback) {
+    fetchCourseReviews(courseId, (reviews) => {
+      this.reviews = reviews;
+      if (typeof callback === "function") {
+        callback(reviews);
+      } else {
+        console.error("Callback is not a function");
+      }
+      console.log("Loaded reviews for course:", courseId, reviews);
+    });
+  },
+
+  loadUserReview(courseId, userId) {
+    fetchUserReview(courseId, userId, (review) => {
+      console.log("Loaded user review for course:", courseId, review);
+    });
+  },
 
   getCourseNames() {
     if (!Array.isArray(this.clubinformation)) {
