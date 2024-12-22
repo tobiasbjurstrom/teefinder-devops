@@ -51,6 +51,7 @@ const model = observable({
 
     setCurrentUser(user) {
       this.currentUser = user;
+      console.log("Current user:" + this.currentUser);
       model.userLoggedIn = true;
     },
 
@@ -83,6 +84,7 @@ const model = observable({
     async handleGoogleLogin(response) {
       try {
         const userObject = decodeGoogleToken(response.credential);
+        console.log("user objcet: " + userObject.sub)
         userObject.id = userObject.sub;
         this.setCurrentUser(userObject);
         localStorage.setItem("loggedInUserId", userObject.id);

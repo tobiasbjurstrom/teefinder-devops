@@ -1,7 +1,9 @@
 import "../index.css";
 
 function ReviewForm(props, courseId, userId, userName ) {
- 
+  console.log("User ID: " + userId);
+  console.log("Course ID: ", + courseId);
+  console.log("user Name: " + userName);
   let rating = 0;
   let hoverRating = null;
 
@@ -28,9 +30,7 @@ function ReviewForm(props, courseId, userId, userName ) {
     props.model.addReview(courseId, userId, userName, rating);
     rating = 0;
     hoverRating = null;
-    //reviewText = "";
     updateStars();
-    //document.querySelector("#reviewText").value = "";
   };
   
   const handleStarClick = (index) => {
@@ -62,17 +62,7 @@ function ReviewForm(props, courseId, userId, userName ) {
     star.onmouseleave = handleStarMouseLeave();
 
     starsContainer.appendChild(star);
-  }
-
-  /*const textarea = document.createElement("textarea");
-  textarea.placeholder = "Write your review here...";
-  textarea.id = "reviewText"; 
-  textarea.rows = 4;
-  textarea.style.width = "100%";
-  textarea.style.marginTop = "10px";
-  textarea.addEventListener('keyup',handleTextChangeACB); */
-
-  
+  } 
   const submitButton = document.createElement("button");
   submitButton.type = "submit";
   submitButton.textContent = "Submit Review";

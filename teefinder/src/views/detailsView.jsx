@@ -2,7 +2,7 @@ import React from "react";
 import ReviewForm from "../views/reviewForm";
 import ReviewList from "../views/reviewList";
 
-export function DetailsView( props, { reviews, userId, userName, onAddReview } ) {
+export function DetailsView( props) {
   console.log(props.model.reviews);
   const course = props.getCourse();
 
@@ -23,7 +23,7 @@ return (
       <ReviewForm
         model={props.model}
         courseId={course.club_name}
-        userId={props.model.reviews.userId}
+        userId={props.model.loginStore.currentUser}
         userName={props.model.reviews.userName}
       />
       <div className="reviews-section">
