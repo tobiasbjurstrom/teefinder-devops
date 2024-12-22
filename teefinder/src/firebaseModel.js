@@ -77,16 +77,16 @@ function fetchAllUsersFromFirebase(callback) {
   get(usersRef)
   .then((snapshot) => {
     if (snapshot.exists()) {
-      const data = snapshot.val();  // Get the data from the snapshot
-      callback(data || {});  // Call the callback with the data
+      const data = snapshot.val(); 
+      callback(data || {});  
     } else {
       console.log("No data found");
-      callback({});  // If no data found, pass an empty object
+      callback({});  
     }
   })
   .catch((error) => {
-    console.error("Error fetching data:", error);  // Handle any errors
-    callback({});  // Return an empty object in case of error
+    console.error("Error fetching data:", error);  
+    callback({});  
   });
 }
 
