@@ -140,9 +140,9 @@ const model = observable({
     },
   },
 
-  async addReview(courseId, userId, userName, rating, reviewText) {
+  async addReview(courseId, userId, userName, rating) {
     const timestamp = new Date().toISOString();
-    const reviewData = { rating, reviewText, userName, timestamp };
+    const reviewData = { rating, userName, timestamp };
     await saveReview(courseId, userId, reviewData);
     console.log("Review saved for course:", courseId);
     this.loadCourseReviews(courseId);

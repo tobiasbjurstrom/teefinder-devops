@@ -17,7 +17,10 @@ export function DetailsView({ course, reviews, userId, userName, onAddReview }) 
       <p>Phone: {course.phone}</p>
       <p>Email: {course.email_adress}</p>
 
-      <ReviewList reviews={reviews} />
+      <div className="reviews-section">
+        <ReviewList reviews={reviews} />
+      </div>
+
       <ReviewForm
         courseId={course.club_name}
         userId={userId}

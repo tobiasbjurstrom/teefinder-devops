@@ -173,22 +173,19 @@ code {
   gap: 10px;
   margin-left: auto;
 }
-
-
 .popup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 100;
 }
 .popup-content {
-
   border-radius: 10px;
   padding: 20px;
   width: 80%; 
@@ -322,5 +319,33 @@ code {
   margin-top: 5px;
   font-size: 16px;
   line-height: 1.5;
+}
+.details-content {
+  width: 600px; 
+  height: 600px; 
+  overflow: hidden; 
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.reviews-section {
+  max-height: 300px; 
+  overflow-y: auto; 
+  border-top: 1px solid #ddd; 
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.reviews-section::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.reviews-section::-webkit-scrollbar-thumb {
+  background-color: #aaa; 
+  border-radius: 4px; 
+}
+
+.reviews-section::-webkit-scrollbar-track {
+  background-color: #f0f0f0; 
 }
 
