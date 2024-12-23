@@ -22,6 +22,8 @@ return (
       <p>Address: {course.address}</p>
       <p>Phone: {course.phone}</p>
       <p>Email: {course.email_adress}</p>
+      <p>Webbsite: {course.website}</p>
+      <p>number of holes: {course.number_of_holes} </p>
 
       <div>
         <button className="review-button"

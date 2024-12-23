@@ -83,6 +83,8 @@ async function initializeMap() {
     map.setZoom(10); 
     const lat = place.geometry.location.lat();
     const lng = place.geometry.location.lng();
+    clickedLat = lat;
+    clickedLng = lng;
 
     window.clickedCoordinates = { lat: lat, lng: lng };
     position = {lat: lat, lng: lng};
@@ -94,6 +96,7 @@ async function initializeMap() {
         position: position,
         map,
       });
+    model.loadCourses();
 
   });
 
