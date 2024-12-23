@@ -1,16 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, set, onValue} from "firebase/database";
 import { firebaseConfig } from "./firebaseConfig";
-import { fetchGolfCourses } from "./golfCourseSource"; 
 import { jwtDecode } from "jwt-decode";
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const usersRef = ref(db, "users");
 
 const PATH = "golfModel";
-
-let googleInitialized = false;
 
 function modelToPersistence(model) {
   return {
