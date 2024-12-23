@@ -2,6 +2,7 @@ import { model } from './GolfCourseModel';
 
 const apiKey ='AIzaSyA6i9thnMDGCRhO-EP5-X_yGyRMgHS5gqY';
 const apiURL = 'https://maps.googleapis.com/maps/api/js?key=';
+const proxURL ='https://brfenergi.se/iprog/group/001/';
 //https://www.google.com/maps/embed/v1/MAP_MODE?key=YOUR_API_KEY&PARAMETERS
     
 window.clickedCoordinates = null;
@@ -12,15 +13,52 @@ let clickedLng = null;
 
 function urlBuilder() {
 
-    const url = `${apiURL}${apiKey}&loading=async&libraries=maps,places&callback=initMap`;
+    const url = `${proxURL}${apiURL}${apiKey}&loading=async&libraries=maps,places&callback=initMap`;
 
     return url;
 }
 
 async function fetchGoogleMaps() {
     const url = urlBuilder();
+    const headers = {
+        'X-DH2642-Key': '3d2a031b4cmsh5cd4e7b939ada54p19f679jsn9a775627d767', 
+        'X-DH2642-Group': '001'  
+      };
     console.log('fetching:')
-    try {
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `${url}`, true);
+    
+    // Attach headers to the request
+    for (let key in headers) {
+      if (headers.hasOwnProperty(key)) {
+        xhr.setRequestHeader(key, headers[key]);
+      }
+    }
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+          // Dynamically create a script tag to load the Google Maps API
+          const scriptTag = document.createElement('script');
+          scriptTag.innerHTML = xhr.responseText;  // Add the script content returned from the proxy
+          document.body.appendChild(scriptTag);
+      
+          window.initMap = () => {
+            console.log('Google Maps API loaded');
+              initializeMap(); 
+        };
+            document.head.appendChild(scriptTag);
+        } else {
+          console.error('Error loading Google Maps:', xhr.status, xhr.statusText);
+        }
+      };
+      xhr.onerror = function () {
+        console.error('Network error while fetching Google Maps');
+      };
+      
+      xhr.send();
+    
+    /*try {
         const script = document.createElement('script');
         script.src = url; 
         script.async = true;
@@ -35,6 +73,7 @@ async function fetchGoogleMaps() {
             console.error('Error fetching data:', error);
         throw error;
         }
+        */
 }
 async function initializeMap() {
 
