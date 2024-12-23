@@ -51,7 +51,6 @@ const model = observable({
 
     setCurrentUser(user) {
       this.currentUser = user;
-      console.log("Current user:" + this.currentUser);
       model.userLoggedIn = true;
     },
 

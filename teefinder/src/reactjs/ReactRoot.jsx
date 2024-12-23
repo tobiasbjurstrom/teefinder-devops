@@ -11,6 +11,8 @@ const ReactRoot = observer(function ReactRoot(props) {
   if (!props.model.golfCoursesPromiseState.promise) {
     return <img src="https://brfenergi.se/iprog/loading.gif" alt="Loading" />;
   }   
+  console.log("props: " + props);
+  console.log(props.model)
   props.model.loginStore.reloadCurrentUser();
   function onLoginClick(){
      props.model.login = true;

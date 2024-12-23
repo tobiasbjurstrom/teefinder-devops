@@ -5,6 +5,9 @@ import ReviewList from "../views/reviewList";
 export function DetailsView( props) {
   console.log(props.model.reviews);
   const course = props.getCourse();
+  console.log("userId: " + props.model.loginStore.currentUser.id);
+  console.log(props.model.loginStore.currentUser.id);
+  console.log("userName: " + props.model.loginStore.currentUser.name);
 
   if (!course) {
       return <div>No course selected</div>;
@@ -23,8 +26,8 @@ return (
       <ReviewForm
         model={props.model}
         courseId={course.club_name}
-        userId={props.model.loginStore.currentUser}
-        userName={props.model.reviews.userName}
+        userId={props.model.loginStore.currentUser.id}
+        userName={props.model.loginStore.currentUser.name}
       />
       <div className="reviews-section">
 

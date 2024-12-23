@@ -1,9 +1,13 @@
 import "../index.css";
+import { observer } from 'mobx-react-lite';
 
-function ReviewForm(props, courseId, userId, userName ) {
-  console.log("User ID: " + userId);
-  console.log("Course ID: ", + courseId);
-  console.log("user Name: " + userName);
+const ReviewForm= observer(function ReviewRender(props) {
+  console.log(props);
+  let course = props.model.selectedCourse;
+  console.log(course);
+  console.log("User ID: " + props.userId);
+  console.log("Course ID: " + course.place_id);
+  console.log("user Name: " + props.userName);
   let rating = 0;
   let hoverRating = null;
 
@@ -27,7 +31,7 @@ function ReviewForm(props, courseId, userId, userName ) {
       alert("Please select a rating between 1 and 5 stars.");
       return;
     }
-    props.model.addReview(courseId, userId, userName, rating);
+    props.model.addReview(course.place_id, props.userId, props.userName, rating);
     rating = 0;
     hoverRating = null;
     updateStars();
@@ -93,6 +97,6 @@ function ReviewForm(props, courseId, userId, userName ) {
       <button type="submit">Submit Review</button>
     </form>
   );
-}
+});
 
 export default ReviewForm;

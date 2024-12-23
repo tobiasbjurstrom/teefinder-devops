@@ -126,6 +126,8 @@ async function renderGoogleButton() {
 
 
   function saveReview(courseId, userId, reviewData) {
+    console.log("Reviewdata: ")
+    console.log(reviewData)
     const reviewRef = ref(db, `reviews/${courseId}/${userId}`);
     return set(reviewRef, reviewData);
   }
