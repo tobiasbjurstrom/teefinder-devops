@@ -173,7 +173,7 @@ code {
   gap: 10px;
   margin-left: auto;
 }
-.popup {
+.popup,.review-popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -183,8 +183,10 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 100;
+  
 }
+.popup{ z-index: 100;}
+.review-popup{z-index: 200;}
 .popup-content {
   border-radius: 10px;
   padding: 20px;
@@ -193,6 +195,7 @@ code {
   background: linear-gradient(to bottom right, #4caf50, #2196f3); 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
+  z-index: 101;
 }
 
 .close-button {
@@ -348,24 +351,24 @@ code {
 .reviews-section::-webkit-scrollbar-track {
   background-color: #f0f0f0; 
 }
-.review-popup{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 200;
-}
 .popup-review-content {
   border-radius: 10px;
   padding: 20px;
-  width: 80%; 
+  width: 50%; 
   max-width: 600px;
   background: linear-gradient(to bottom right, #4caf50, #2196f3); 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
+  z-index: 201; 
+}
+.review-button{
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #45c4ba;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.2s ease;
 }

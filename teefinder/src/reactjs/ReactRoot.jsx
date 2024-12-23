@@ -88,16 +88,19 @@ return (
           <button className="close-button" onClick={goBackDetailsACB}>×</button>
           <DetailsPresenter model={props.model} onReviewClick={handleReviweClickACB} />
         </div>
-        {props.model.onReview && (
+      </div>
+    )}
+            {props.model.onReview && (
+              <div className="review-popup">
           <div className="popup-review-content">
+          <button className="close-button" onClick={goBackReviewACB}>×</button>
             <ReviewForm 
             model={props.model}
 
             onSubmit={goBackReviewACB}/>
           </div>
+          </div>
         )}
-      </div>
-    )}
       {props.model.loadFavourites && (
       <div className="popup">
         <div className="popup-content">
