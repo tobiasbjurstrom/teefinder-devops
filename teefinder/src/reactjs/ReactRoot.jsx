@@ -41,6 +41,7 @@ const ReactRoot = observer(function ReactRoot(props) {
   function handleCourseClickACB(event){
     props.model.setSelectedCourse(event);
     console.log(event);
+    console.log("ja")
   }
   function handleReviweClickACB( ){
     props.model.onReview = true;
@@ -102,10 +103,12 @@ return (
           </div>
         )}
       {props.model.loadFavourites && (
-      <div className="popup">
-        <div className="popup-content">
+      <div className="favourite-popup">
+        <div className="favourite-popup-content">
           <button className="close-button" onClick={goBackFavorutiteClickACB}>×</button>
-          <FavouritesPresenter model={props.model} />
+          <FavouritesPresenter 
+          model={props.model}
+          onCourseClick={handleCourseClickACB} />
         </div>
       </div>
     )}

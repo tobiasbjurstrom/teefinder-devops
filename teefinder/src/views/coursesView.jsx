@@ -14,9 +14,6 @@ export function CoursesView( props ) {
               {courseName}
             </span>
             <div className="button-group">
-                <button onClick={() => props.removeFavourite(courseName)}>
-                  Remove from Favourites
-                </button>
                 <button onClick={() => props.clickOnFavourites(courseName)}>
                   Add to Favourites
                 </button>
