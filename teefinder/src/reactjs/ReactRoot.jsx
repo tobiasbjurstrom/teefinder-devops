@@ -5,7 +5,7 @@ import MapPresenter from './mapPresenter';
 import LoginPresenter from './loginPresenter';
 import DetailsPresenter from './detailsPresenter';
 import FavouritesPresenter from './favouritesPresenter';
-import ReviewForm from './/reviewForm';
+import ReviewForm from './reviewForm';
 
 
 const ReactRoot = observer(function ReactRoot(props) {
