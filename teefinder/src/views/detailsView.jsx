@@ -1,5 +1,4 @@
 import React from "react";
-import ReviewForm from "../views/reviewForm";
 import ReviewList from "../views/reviewList";
 
 export function DetailsView( props) {
@@ -12,6 +11,8 @@ export function DetailsView( props) {
   if (!course) {
       return <div>No course selected</div>;
   }
+
+
 return (
   <div className="details-content">
     <h1>Details</h1>
@@ -22,13 +23,11 @@ return (
       <p>Phone: {course.phone}</p>
       <p>Email: {course.email_adress}</p>
 
-
-      <ReviewForm
-        model={props.model}
-        courseId={course.club_name}
-        userId={props.model.loginStore.currentUser.id}
-        userName={props.model.loginStore.currentUser.name}
-      />
+      <div>
+        <button className="review-button"
+        onClick={() => props.reviewClick()}
+        >Review</button>
+      </div>
       <div className="reviews-section">
 
         <ReviewList reviews={props.model.reviews} />
@@ -40,3 +39,10 @@ return (
 }
 
 export default DetailsView;
+/*
+      <ReviewForm
+        model={props.model}
+        courseId={course.club_name}
+        userId={props.model.loginStore.currentUser.id}
+        userName={props.model.loginStore.currentUser.name}
+      />*/

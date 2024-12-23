@@ -348,4 +348,24 @@ code {
 .reviews-section::-webkit-scrollbar-track {
   background-color: #f0f0f0; 
 }
-
+.review-popup{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+.popup-review-content {
+  border-radius: 10px;
+  padding: 20px;
+  width: 80%; 
+  max-width: 600px;
+  background: linear-gradient(to bottom right, #4caf50, #2196f3); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}

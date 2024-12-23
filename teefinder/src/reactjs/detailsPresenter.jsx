@@ -6,9 +6,15 @@ const DetailsPresenter = observer(function DetailsRender(props) {
   function getCourseACB() {
       return props.model.getSelectedCourse();
   }
+  function reviewClickACB(){
+    props.onReviewClick();
+  }
   
   return (
-    <DetailsView model={props.model} getCourse={getCourseACB} />
+    <DetailsView 
+    model={props.model} 
+    getCourse={getCourseACB} 
+    reviewClick={reviewClickACB} />
   );
   });
   

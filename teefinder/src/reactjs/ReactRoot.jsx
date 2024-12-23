@@ -5,6 +5,7 @@ import MapPresenter from './mapPresenter';
 import LoginPresenter from './loginPresenter';
 import DetailsPresenter from './detailsPresenter';
 import FavouritesPresenter from './favouritesPresenter';
+import ReviewForm from './/reviewForm';
 
 
 const ReactRoot = observer(function ReactRoot(props) {
@@ -34,9 +35,15 @@ const ReactRoot = observer(function ReactRoot(props) {
   function goBackDetailsACB(){
     props.model.setSelectedCourse(null);
   }
+  function goBackReviewACB(){
+    props.model.onReview = false;
+  }
   function handleCourseClickACB(event){
     props.model.setSelectedCourse(event);
     console.log(event);
+  }
+  function handleReviweClickACB( ){
+    props.model.onReview = true;
   }
 
 return (
@@ -72,14 +79,23 @@ return (
         <div className='courses-content'>
           <CoursesPresenter 
           model={props.model}
-          onCourseClick={handleCourseClickACB} /></div>
+          onCourseClick={handleCourseClickACB}
+           /></div>
       </div>
       {props.model.selectedCourse && (
       <div className="popup">
         <div className="popup-content">
           <button className="close-button" onClick={goBackDetailsACB}>×</button>
-          <DetailsPresenter model={props.model} />
+          <DetailsPresenter model={props.model} onReviewClick={handleReviweClickACB} />
         </div>
+        {props.model.onReview && (
+          <div className="popup-review-content">
+            <ReviewForm 
+            model={props.model}
+
+            onSubmit={goBackReviewACB}/>
+          </div>
+        )}
       </div>
     )}
       {props.model.loadFavourites && (

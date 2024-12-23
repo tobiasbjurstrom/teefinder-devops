@@ -40,7 +40,7 @@ const model = observable({
   userLoggedIn: false,
   isMapsLoaded: false,
   loadFavourites: false,
-
+  onReview: false,
 
   loginStore: {
     users: {},

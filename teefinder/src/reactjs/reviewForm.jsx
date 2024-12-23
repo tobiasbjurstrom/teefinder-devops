@@ -10,7 +10,13 @@ const ReviewForm= observer(function ReviewRender(props) {
   console.log("user Name: " + props.userName);
   let rating = 0;
   let hoverRating = null;
-
+/*
+      <ReviewForm
+        model={props.model}
+        courseId={course.club_name}
+        userId={props.model.loginStore.currentUser.id}
+        userName={props.model.loginStore.currentUser.name}
+      />*/
   const form = document.createElement("form");
   form.style.marginTop = "20px";
 
@@ -31,10 +37,11 @@ const ReviewForm= observer(function ReviewRender(props) {
       alert("Please select a rating between 1 and 5 stars.");
       return;
     }
-    props.model.addReview(course.place_id, props.userId, props.userName, rating);
+    props.model.addReview(course.place_id, props.model.loginStore.currentUser.id, props.model.loginStore.currentUser.name, rating);
     rating = 0;
     hoverRating = null;
     updateStars();
+    props.model.onReview = false;
   };
   
   const handleStarClick = (index) => {
