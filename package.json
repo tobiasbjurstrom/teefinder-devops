@@ -2,6 +2,7 @@
   "name": "teefinder",
   "version": "0.1.0",
   "private": true,
+  
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -21,6 +22,9 @@
     "react-router-dom": "^7.0.2",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
+  },
+  "overrides": {
+    "@grpc/grpc-js": "^1.12.7"
   },
   "scripts": {
     "start": "react-scripts start",
