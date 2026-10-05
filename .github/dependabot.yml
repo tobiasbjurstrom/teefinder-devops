@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # Check npm packages
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Stockholm"
+    open-pull-requests-limit: 10
+
+  # Check GitHub Actions (checkout, setup-node, trufflehog)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Stockholm"
+    open-pull-requests-limit: 5
