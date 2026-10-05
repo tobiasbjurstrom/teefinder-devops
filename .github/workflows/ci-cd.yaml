@@ -82,7 +82,7 @@ jobs:
       - name: Verify build artifacts
         run: |
           test -f build/index.html || { echo "Missing index.html!"; exit 1; }
-          test -d build/static || { echo "Missing static asset directory!"; exit 1; }
+          test -d build/assets || { echo "Missing static asset directory!"; exit 1; }
           echo "Build verification successful: production bundle is complete."
           ls -lh build/
 
