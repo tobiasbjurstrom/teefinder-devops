@@ -2,7 +2,14 @@ Taken from a previous project for use in the development of a CI/CD pipeline in 
 
 On successful deployment, the app is reachable at https://teefinder-devops.web.app/
 
-Disabling can be done by running 'firebase hosting:disable'. Redeploy to enable hosting.
+## Get it running
+
+- Download dependencies with `npm install`
+- Google Maps API required, create and place in file `.local.env`
+- Start locally using `npm start`
+- Browser automatically opens. With the right API keys you can log in with Google, otherwise use Guest. Pressing a point on the map shows a list of nearby golf courses. Each also has the option to mark it as a favourite.
+
+Disabling can be done by running `firebase hosting:disable`. Redeploy to enable hosting.
 
 
 
