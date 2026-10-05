@@ -29,7 +29,8 @@
     "resolve-url-loader": "^5.0.0",
     "postcss": "^8.4.49",
     "@svgr/webpack": "^8.1.0",
-    "nth-check": "^2.1.1"
+    "nth-check": "^2.1.1",
+    "ajv-keywords": "^3.5.2"
   },
   "scripts": {
     "start": "react-scripts start",
