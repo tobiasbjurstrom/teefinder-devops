@@ -3,8 +3,14 @@ name: TeeFinder CI/CD Pipeline
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'README.md'
+      - '.gitignore'
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - 'README.md'
+      - '.gitignore'
   workflow_dispatch:
 
 jobs:
@@ -31,11 +37,20 @@ jobs:
           CI: true
           REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
 
+      # Automatic Build
       - name: Build frontend production bundle
         run: npm run build
         env:
-          CI: false # Prevents CRA warnings from treating warnings as fatal build errors
+          CI: false 
           REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
+
+      # Build Verification
+      - name: Verify build artifacts
+        run: |
+          test -f build/index.html || { echo "Missing index.html!"; exit 1; }
+          test -d build/static || { echo "Missing static asset directory!"; exit 1; }
+          echo "Build verification successful: production bundle is complete."
+          ls -lh build/
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
