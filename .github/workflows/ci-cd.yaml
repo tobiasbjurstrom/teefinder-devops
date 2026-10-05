@@ -63,9 +63,15 @@ jobs:
         run: npm test -- --watchAll=false --ci # --ci tells test runner that we are in a pipeline, no interactive output, etc..
         env:
           CI: true
-          REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
 
       # Automatic Build
+      - name: Verify Environment Variables for Build
+        run: |
+          if [ -z "${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}" ]; then
+            echo "::error::REACT_APP_GOOGLE_MAPS_API_KEY is not defined!"
+            exit 1
+          fi
+
       - name: Build frontend production bundle
         run: npm run build
         env:

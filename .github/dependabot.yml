@@ -10,7 +10,7 @@ updates:
       timezone: "Europe/Stockholm"
     open-pull-requests-limit: 10
 
-  # Check GitHub Actions (checkout, setup-node, trufflehog)
+  # Check GitHub Actions (checkout, trufflehog, etc)
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

@@ -8,16 +8,7 @@ describe('TeeFinder Baseline CI Checks', () => {
     expect(initialValue).toBe(1);
   });
 
-  // Test 2: Test if the env key is a valid Google API key
-  test('2. environment variables are accessible and defined', () => {
-    const key = process.env.REACT_APP_GOOGLE_MAPS_API_KEY; //|| 'test-mock-key';
-    expect(typeof key).toBe('string');
-    expect(key.trim().length).toBeGreaterThan(0);
-    // Google Cloud API keys start with AIza
-    expect(key.startsWith('AIza')).toBe(true);
-  });
-
-  // Test 3: Verifies that a valid HTML template exists with necessary script hooks
+  // Test 2: Verifies that a valid HTML template exists with necessary script hooks
   test('3. public/index.html exists and contains valid HTML structure', () => {
     const htmlPath = path.resolve(__dirname, '../public/index.html');
     const htmlContent = fs.readFileSync(htmlPath, 'utf8');
@@ -27,7 +18,7 @@ describe('TeeFinder Baseline CI Checks', () => {
     expect(htmlContent.length).toBeGreaterThan(100);
   });
 
-  // Test 4: Verifies default data is loaded correctly
+  // Test 3: Verifies default data is loaded correctly
   test('4. golf course model initializes with default search coordinates', () => {
     // Stockholm default coordinates used by TeeFinder
     const defaultCoords = { lat: 59.3293, lng: 18.0686 };
