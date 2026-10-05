@@ -16,99 +16,98 @@ on:
 jobs:
 
   # Trufflehog secret scanner (https://trufflesecurity.com/blog/running-trufflehog-in-a-github-action)
-  jobs: 
-    TruffleHog: 
-      runs-on: ubuntu-latest 
-      defaults: 
-        run: 
-          shell: bash 
-      steps: 
-        - name: Checkout code 
-          uses: actions/checkout@v4 
-          with: 
-            fetch-depth: 0
+  TruffleHog: 
+    runs-on: ubuntu-latest 
+    defaults: 
+      run: 
+        shell: bash 
+    steps: 
+      - name: Checkout code 
+        uses: actions/checkout@v4 
+        with: 
+          fetch-depth: 0
 
-        - name: TruffleHog OSS 
-          id: trufflehog 
-          uses: trufflesecurity/trufflehog@add-actions-cli-switch 
-          continue-on-error: true 
-          with: 
-            path: ./ 
-            base: "${{ github.event.repository.default_branch }}" 
-            head: HEAD 
-            extra_args: --debug --only-verified
+      - name: TruffleHog OSS 
+        id: trufflehog 
+        uses: trufflesecurity/trufflehog@add-actions-cli-switch 
+        continue-on-error: true 
+        with: 
+          path: ./ 
+          base: "${{ github.event.repository.default_branch }}" 
+          head: HEAD 
+          extra_args: --debug --only-verified
 
-        - name: Scan Results Status 
-          if: steps.trufflehog.outcome == 'failure' 
-          run: exit 1
-    # CI Jobs
-    ci:
-      name: Build & Test
-      needs: TruffleHog
+      - name: Scan Results Status 
+        if: steps.trufflehog.outcome == 'failure' 
+        run: exit 1
+  # CI Jobs
+  ci:
+    name: Build & Test
+    needs: TruffleHog
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install 
+
+      - name: Run tests
+        run: npm test -- --watchAll=false --ci # --ci tells test runner that we are in a pipeline, no interactive output, etc..
+        env:
+          CI: true
+          REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
+
+      # Automatic Build
+      - name: Build frontend production bundle
+        run: npm run build
+        env:
+          CI: false 
+          REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
+
+      # Build Verification
+      - name: Verify build artifacts
+        run: |
+          test -f build/index.html || { echo "Missing index.html!"; exit 1; }
+          test -d build/static || { echo "Missing static asset directory!"; exit 1; }
+          echo "Build verification successful: production bundle is complete."
+          ls -lh build/
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: build/
+          retention-days: 1
+
+  cd:
+      name: Deploy to Firebase Hosting
+      needs: ci # Only run on successful CI
+      if: github.ref == 'refs/heads/main' # Only run on main branch, not on PR, etc
       runs-on: ubuntu-latest
 
       steps:
         - name: Check out repository
           uses: actions/checkout@v4
 
-        - name: Set up Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 24
-            cache: 'npm'
-
-        - name: Install dependencies
-          run: npm ci || npm install 
-
-        - name: Run tests
-          run: npm test -- --watchAll=false --ci # --ci tells test runner that we are in a pipeline, no interactive output, etc..
-          env:
-            CI: true
-            REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
-
-        # Automatic Build
-        - name: Build frontend production bundle
-          run: npm run build
-          env:
-            CI: false 
-            REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
-
-        # Build Verification
-        - name: Verify build artifacts
-          run: |
-            test -f build/index.html || { echo "Missing index.html!"; exit 1; }
-            test -d build/static || { echo "Missing static asset directory!"; exit 1; }
-            echo "Build verification successful: production bundle is complete."
-            ls -lh build/
-
-        - name: Upload build artifact
-          uses: actions/upload-artifact@v4
+        - name: Download build artifact
+          uses: actions/download-artifact@v4
           with:
             name: build-artifact
-            path: build/
-            retention-days: 1
+            path: build
 
-    cd:
-        name: Deploy to Firebase Hosting
-        needs: ci # Only run on successful CI
-        if: github.ref == 'refs/heads/main' # Only run on main branch, not on PR, etc
-        runs-on: ubuntu-latest
-
-        steps:
-          - name: Check out repository
-            uses: actions/checkout@v4
-
-          - name: Download build artifact
-            uses: actions/download-artifact@v4
-            with:
-              name: build-artifact
-              path: build
-
-          - name: Deploy to Firebase Hosting
-            uses: FirebaseExtended/action-hosting-deploy@v0
-            with:
-              repoToken: ${{ secrets.GITHUB_TOKEN }}
-              firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEEFINDER_DEVOPS }}
-              channelId: live
-              projectId: teefinder-devops
+        - name: Deploy to Firebase Hosting
+          uses: FirebaseExtended/action-hosting-deploy@v0
+          with:
+            repoToken: ${{ secrets.GITHUB_TOKEN }}
+            firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEEFINDER_DEVOPS }}
+            channelId: live
+            projectId: teefinder-devops
       
