@@ -7,6 +7,6 @@ describe('TeeFinder Baseline CI Checks', () => {
   test('environment variables are accessible or defined safely', () => {
     const key = process.env.REACT_APP_GOOGLE_MAPS_API_KEY; //|| 'test-mock-key';
     expect(typeof key).toBe('string');
-  }); // passes by calling $env:REACT_APP_GOOGLE_MAPS_API_KEY="test-key"; npm test -- --watchAll=false
-      // Will be fixed when launched by Actions with github Secrets (I think)
+    expect(key.trim().length).toBeGreaterThan(0);
+  });
 });
