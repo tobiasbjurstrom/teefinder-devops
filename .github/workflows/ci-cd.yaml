@@ -77,6 +77,7 @@ jobs:
         run: npm run build
         env:
           CI: false 
+          REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
   
       # Build Verification
       - name: Verify build artifacts
