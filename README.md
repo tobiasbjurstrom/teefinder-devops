@@ -1,5 +1,19 @@
-Taken from a previous project for use in the development of a CI/CD pipeline in the DevOps course. The original Readme is found below:
+Taken from a previous project for use in the development of a CI/CD pipeline in the DevOps course. The original Readme is found at the bottom.
 
+
+## Get it running
+
+- Download dependencies with `npm install`
+- Google Maps API required, create and place in file `.local.env`
+- Start locally using `npm start`
+- Browser automatically opens. With the right API keys you can log in with Google, otherwise use Guest. Pressing a point on the map shows a list of nearby golf courses. Each also has the option to mark it as a favorite.
+
+Upon successful workflow the site is automatically deployed using Firebase. On successful deployment, the app is reachable at https://teefinder-devops.web.app/
+Disabling can be done by running `firebase hosting:disable`. Redeploy to enable hosting.
+
+
+
+#
 > Project in DH2624
 This is an app for golf players to find golf courses based on coordinates from an embedded google maps view. The user chose an destination either by clicking the map or search a city. 
 The app show golf courses close to the location and the user may interact with the reults to find more info of the courses. The user may rate and save the golf courses to its own favourites. 
