@@ -6,6 +6,8 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "build": "vite build",
     "serve": "serve -s build"
   },
@@ -23,13 +25,13 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^9.4.0",
+    "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "firebase": "^12.19.0",
     "fs": "^0.0.1-security",
     "jwt-decode": "^4.0.0",
     "mobx": "^7.0.6",
     "mobx-react-lite": "^5.1.0",
-    "path": "^0.12.7",
     "react": "^19.3.0"
   },
   "overrides": {
@@ -41,6 +43,8 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.1.2",
-    "vite": "^8.3.2"
+    "jsdom": "^30.1.2",
+    "vite": "^8.3.2",
+    "vitest": "^5.0.3"
   }
 }

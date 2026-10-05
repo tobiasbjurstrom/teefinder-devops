@@ -12,8 +12,8 @@ describe('CoursesView Component Tests using jest-dom', () => {
   };
 
   test('renders course names and favourite buttons from model data', () => {
-    const handleFavourite = jest.fn();
-    const handleCourseClick = jest.fn();
+    const handleFavourite = vi.fn();
+    const handleCourseClick = vi.fn();
 
     render(
       <CoursesView
@@ -35,8 +35,8 @@ describe('CoursesView Component Tests using jest-dom', () => {
   });
 
   test('clicking "Add to Favourites" triggers the callback with correct course name', () => {
-    const handleFavourite = jest.fn();
-    const handleCourseClick = jest.fn();
+    const handleFavourite = vi.fn();
+    const handleCourseClick = vi.fn();
 
     render(
       <CoursesView

@@ -10,7 +10,7 @@ describe('TeeFinder Baseline CI Checks', () => {
 
   // Test 2: Verifies that a valid HTML template exists with necessary script hooks
   test('3. public/index.html exists and contains valid HTML structure', () => {
-    const htmlPath = path.resolve(__dirname, '../public/index.html');
+    const htmlPath = path.resolve(__dirname, '../index.html');
     const htmlContent = fs.readFileSync(htmlPath, 'utf8');
 
     expect(htmlContent).toContain('<!DOCTYPE html>');
