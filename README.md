@@ -2,6 +2,8 @@ Taken from a previous project for use in the development of a CI/CD pipeline in 
 
 On successful deployment, the app is reachable at https://teefinder-devops.web.app/
 
+Disabling can be done by running 'firebase hosting:disable'. Redeploy to enable hosting.
+
 
 
 #
