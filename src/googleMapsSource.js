@@ -1,7 +1,7 @@
 import { model } from './GolfCourseModel';
 
 const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-const apiKeyTest = "AIzaSyA6i9thnMDGCRhO-EP5-X_yGyRMgHS5fqY";
+const apiKeyTest = "AIzaSyA6i9thnMDGCRhO-ET5-X_yGyRMgHS5fqY";
 
 
 window.clickedCoordinates = null;
