@@ -1,6 +1,6 @@
 import { model } from './GolfCourseModel';
 
-const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+const apiKey = import.meta.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 
 window.clickedCoordinates = null;

@@ -1,64 +1,46 @@
 {
-  "name": "teefinder",
-  "version": "0.1.0",
-  "private": true,
-  
-  "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@googlemaps/js-api-loader": "^1.16.8",
-    "@mui/material": "^6.2.1",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jwt-decode": "^2.2.1",
-    "@vis.gl/react-google-maps": "^1.4.2",
-    "firebase": "^11.0.2",
-    "jwt-decode": "^4.0.0",
-    "mobx": "^6.13.5",
-    "mobx-react-lite": "^4.0.7",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^7.0.2",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
-  },
-  "overrides": {
-    "@grpc/grpc-js": "^1.12.7",
-    "webpack-dev-server": "^4.15.2",
-    "resolve-url-loader": "^5.0.0",
-    "postcss": "^8.4.49",
-    "@svgr/webpack": "^8.1.0",
-    "nth-check": "^2.1.1",
-    "ajv-keywords": "^3.5.2"
-  },
+  "name": "teefinder-devops",
+  "version": "1.0.0",
+  "description": "Creating a CI/CD pipeline for Teefinder.",
+  "main": "vite.config.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "dev": "react-scripts start",
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
     "serve": "serve -s build"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobiasbjurstrom/teefinder-devops.git"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/tobiasbjurstrom/teefinder-devops/issues"
+  },
+  "homepage": "https://github.com/tobiasbjurstrom/teefinder-devops#readme",
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^9.4.0",
+    "@testing-library/react": "^16.3.3",
+    "firebase": "^12.19.0",
+    "fs": "^0.0.1-security",
+    "jwt-decode": "^4.0.0",
+    "mobx": "^7.0.6",
+    "mobx-react-lite": "^5.1.0",
+    "path": "^0.12.7",
+    "react": "^19.3.0"
+  },
+  "overrides": {
+    "@grpc/grpc-js": "^1.13.6"
+  },
+  "allowScripts": {
+    "protobufjs@7.6.6": true,
+    "@firebase/util@1.15.3": true
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@vitejs/plugin-react": "^6.1.2",
+    "vite": "^8.3.2"
   }
 }
