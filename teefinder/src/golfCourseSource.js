@@ -1,46 +1,56 @@
-
-
 import { getClickedLat, getClickedLng } from './googleMapsSource';
 
-
-const API_KEY = '4bb9b4a6cdmshdf2bdb688b02b06p181056jsn00f11448f199';
-const API_HOST = 'golf-course-finder.p.rapidapi.com';
-
-function handleResponse(response) {
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-    return response.json();
-}
-
-const miles = 49;
-
 export async function fetchGolfCourses() {
-    const clickedLat = getClickedLat();
-    const clickedLng = getClickedLng();
-    console.log("funkar?", clickedLat);
-    if (clickedLat === null || clickedLng === null) {
-        console.log('Coordinates not set');
+  const lat = getClickedLat();
+  const lng = getClickedLng();
+
+  if (lat === null || lng === null) {
+    console.warn('Coordinates not set');
+    return [];
+  }
+
+  // Ensure Places library is loaded
+  const { Place, SearchNearbyRankPreference } = await window.google.maps.importLibrary('places');
+
+  const request = {
+    fields: ['displayName', 'location', 'rating', 'formattedAddress', 'id'],
+    locationRestriction: {
+      center: { lat, lng },
+      radius: 50000 // 50 km
+    },
+    includedPrimaryTypes: ['golf_course'],
+    maxResultCount: 15,
+    rankPreference: SearchNearbyRankPreference.POPULARITY
+  };
+
+  try {
+    const { places } = await Place.searchNearby(request);
+
+    if (!places || places.length === 0) {
+      return [];
     }
-    console.log(`Using coordinates: Latitude: ${clickedLat}, Longitude: ${clickedLng}`);
 
-    const API_URL = `https://golf-course-finder.p.rapidapi.com/api/golf-clubs/?miles=${miles}&latitude=${clickedLat}&longitude=${clickedLng}`;
-
-    const options = {
-        method: 'GET',
-        headers: {
-            'x-rapidapi-key': API_KEY,
-            'x-rapidapi-host': API_HOST
-        }
-    };
-
-    try {
-        const response = await fetch(API_URL, options);
-        return handleResponse(response); // Assuming the response has a 'courses' array
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        throw error;
-    }
+return places.map((place, index) => {
+  const courseTitle = place.displayName || place.name || `Golf Course ${index + 1}`;
+  
+  return {
+    id: place.id || `course-${index}`,
+    // Provide both variants to satisfy whatever the view looks for:
+    name: courseTitle,
+    club_name: courseTitle,
+    course_name: courseTitle,
     
+    // Address variants:
+    address: place.formattedAddress || place.vicinity || 'Address unavailable',
+    club_membership: 'Public',
+    
+    // Coordinates:
+    latitude: place.location?.lat ? place.location.lat() : place.latitude,
+    longitude: place.location?.lng ? place.location.lng() : place.longitude,
+    };
+    });
+  } catch (error) {
+    console.error('Error fetching places:', error);
+    throw error;
+  }
 }
-
