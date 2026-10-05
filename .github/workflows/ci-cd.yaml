@@ -14,6 +14,7 @@ on:
   workflow_dispatch:
 
 jobs:
+  # CI Jobs
   ci:
     name: Build & Test
     runs-on: ubuntu-latest
@@ -58,3 +59,28 @@ jobs:
           name: build-artifact
           path: build/
           retention-days: 1
+
+  cd:
+      name: Deploy to Firebase Hosting
+      needs: ci # Only run on successful CI
+      if: github.ref == 'refs/heads/main' # Only run on main branch, not on PR, etc
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Check out repository
+          uses: actions/checkout@v4
+
+        - name: Download build artifact
+          uses: actions/download-artifact@v4
+          with:
+            name: build-artifact
+            path: build
+
+        - name: Deploy to Firebase Hosting
+          uses: FirebaseExtended/action-hosting-deploy@v0
+          with:
+            repoToken: ${{ secrets.GITHUB_TOKEN }}
+            firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEEFINDER_DEVOPS }}
+            channelId: live
+            projectId: teefinder-devops
+      
