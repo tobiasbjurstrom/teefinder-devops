@@ -1,4 +1,16 @@
 steps:
+  # Step 0: Verify prerequisites
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'verify'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Cloud Build Pipeline - Teefinder DevOps"
+        echo "Project: $PROJECT_ID"
+        echo "Commit: $COMMIT_SHA"
+        echo "Branch: $BRANCH_NAME"
+
   # Step 1: Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build'
@@ -8,7 +20,10 @@ steps:
       - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:${SHORT_SHA}'
       - '-t'
       - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:latest'
+      - '-t'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:${BRANCH_NAME}'
       - '.'
+    waitFor: ['verify']
 
   # Step 2: Push to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
@@ -16,27 +31,60 @@ steps:
     args:
       - 'push'
       - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:${SHORT_SHA}'
-      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:latest'
+    waitFor: ['build']
 
-  # Step 3: Deploy to Cloud Run (optional - uncomment if using Cloud Run)
-  # - name: 'gcr.io/cloud-builders/gke-deploy'
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-latest'
+    args:
+      - 'push'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:latest'
+    waitFor: ['build']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-branch'
+    args:
+      - 'push'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:${BRANCH_NAME}'
+    waitFor: ['build']
+
+  # Step 3: Update deployment (optional - uncomment if using Cloud Run or GKE)
+  # - name: 'gcr.io/cloud-builders/kubectl'
   #   id: 'deploy'
   #   args:
-  #     - 'run'
-  #     - '--filename=k8s/'
-  #     - '--image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:${SHORT_SHA}'
-  #     - '--location=${_REGION}'
-  #     - '--cluster=${_CLUSTER_NAME}'
+  #     - 'set'
+  #     - 'image'
+  #     - 'deployment/teefinder'
+  #     - 'teefinder=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:${SHORT_SHA}'
+  #   env:
+  #     - 'CLOUDSDK_COMPUTE_ZONE=${_CLUSTER_ZONE}'
+  #     - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLUSTER_NAME}'
+  #   waitFor: ['push']
 
 images:
   - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:${SHORT_SHA}'
   - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:latest'
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:${BRANCH_NAME}'
+
+artifacts:
+  objects:
+    location: 'gs://${_ARTIFACT_BUCKET}/'
+    paths:
+      - 'build-info-${SHORT_SHA}.txt'
 
 options:
   machineType: 'N1_HIGHCPU_8'
+  logging: CLOUD_LOGGING_ONLY
+  
+timeout: '1800s'
 
 substitutions:
   _REGION: 'eu'
   _REGISTRY_NAME: 'teefinder-docker-repo'
   _IMAGE_NAME: 'teefinder-app'
   _CLUSTER_NAME: 'teefinder-cluster'
+  _CLUSTER_ZONE: 'europe-west1-b'
+  _ARTIFACT_BUCKET: '${PROJECT_ID}-cloud-build-artifacts'
+
+onFailure:
+  - 'NOTIFY'
+

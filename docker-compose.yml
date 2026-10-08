@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        NODE_ENV: development
+    container_name: teefinder-app
     ports:
       - "3000:3000"
     environment:
@@ -23,7 +26,15 @@ services:
     command: npm run dev
     networks:
       - teefinder-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
 networks:
   teefinder-network:
     driver: bridge
+
