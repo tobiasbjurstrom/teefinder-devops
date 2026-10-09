@@ -75,20 +75,21 @@ resource "google_project_iam_member" "cloud_build_editor" {
 
 # Create a Cloud Build trigger (requires GitHub connection)
 # Note: This requires manual setup of GitHub App connection in Cloud Build UI first
-resource "google_cloudbuild_trigger" "github_trigger" {
-  name            = "${var.app_name}-github-trigger"
-  description     = "Trigger build on GitHub push"
-  service_account = google_service_account.cloud_build_sa.id
-  filename        = "cloudbuild.yaml"
-
-  # Uncomment when GitHub connection is set up
-  # github {
-  #   owner = "tobiasbjurstrom"
-  #   name  = "teefinder-devops"
-  #   push {
-  #     branch = "main"
-  #   }
-  # }
-
-  depends_on = [google_project_service.required_apis["cloudbuild.googleapis.com"]]
-}
+# Commented out until GitHub connection is configured
+# resource "google_cloudbuild_trigger" "github_trigger" {
+#   name            = "${var.app_name}-github-trigger"
+#   description     = "Trigger build on GitHub push"
+#   service_account = google_service_account.cloud_build_sa.id
+#   filename        = "cloudbuild.yaml"
+#
+#   # Uncomment when GitHub connection is set up
+#   # github {
+#   #   owner = "tobiasbjurstrom"
+#   #   name  = "teefinder-devops"
+#   #   push {
+#   #     branch = "main"
+#   #   }
+#   # }
+#
+#   depends_on = [google_project_service.required_apis["cloudbuild.googleapis.com"]]
+# }

@@ -22,8 +22,3 @@ output "firestore_database_name" {
   description = "Firestore Database Name"
   value       = try(google_firestore_database.firestore_db.name, "")
 }
-
-output "cloud_build_status" {
-  description = "Cloud Build API status"
-  value       = try(google_project_service.cloud_build.service, "")
-}

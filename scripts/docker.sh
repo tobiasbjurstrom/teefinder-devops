@@ -28,29 +28,6 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# Show usage
-show_usage() {
-    cat << EOF
-Usage: $0 [command] [options]
-
-Commands:
-  build              Build Docker image
-  dev-up             Start development environment
-  dev-down           Stop development environment
-  dev-logs           View development logs
-  push               Push image to Artifact Registry
-  clean              Clean up Docker resources
-  help               Show this help message
-
-Examples:
-  $0 build
-  $0 dev-up
-  $0 push YOUR_PROJECT_ID v1.0.0
-  $0 clean --all
-
-EOF
-}
-
 # Build Docker image
 build_image() {
     local tag="${1:-latest}"

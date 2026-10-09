@@ -32,40 +32,6 @@ print_error() {
 
 print_step() {
     echo -e "${BLUE}[STEP]${NC} $1"
-}
-
-# Show usage
-show_usage() {
-    cat << EOF
-Usage: $0 [command] [environment] [options]
-
-Commands:
-  init               Initialize Terraform
-  validate           Validate Terraform configuration
-  plan               Plan infrastructure changes
-  apply              Apply infrastructure changes
-  destroy            Destroy infrastructure
-  output             Show Terraform outputs
-  state              Manage Terraform state
-  fmt                Format Terraform files
-  help               Show this help message
-
-Environments:
-  dev                Development
-  staging            Staging
-  prod               Production
-
-Examples:
-  $0 init
-  $0 validate
-  $0 plan dev
-  $0 apply dev
-  $0 destroy prod --auto-approve
-  $0 output dev
-  $0 state list
-
-EOF
-}
 
 # Check prerequisites
 check_prerequisites() {
