@@ -11,6 +11,74 @@ Taken from a previous project for use in the development of a CI/CD pipeline in 
 Upon successful workflow the site is automatically deployed using Firebase. On successful deployment, the app is reachable at https://teefinder-devops.web.app/
 Disabling can be done by running `firebase hosting:disable`. Redeploy to enable hosting.
 
+Infrastructure as Code (IaC) - Teefinder DevOps
+
+This directory contains Terraform configurations and Docker setup for the Teefinder application infrastructure.
+
+This IaC implementation provides:
+
+- **Docker**: Multi-stage containerization for development and production
+- **Terraform**: Infrastructure provisioning on Google Cloud Platform (GCP)
+- **Google Cloud Integration**: Firestore, Cloud Storage, Artifact Registry, Cloud Build
+- **Environment Management**: Dev, staging, and production configurations
+
+## Deployment Guide
+
+### Deployment Workflow
+
+#### 1. Local Development
+
+```bash
+# Start local environment
+docker-compose up -d
+
+# Make your changes
+# Test locally
+docker-compose run --rm teefinder npm run test
+
+# Commit changes
+git add .
+git commit -m "Feature: Add new capability"
+git push origin your-branch
+```
+
+#### 2. Set up Infrastructure
+
+```bash
+# Initialize Terraform (if not already done)
+cd terraform
+terraform init
+
+# Plan and apply for your environment
+terraform plan -var-file=dev.tfvars
+terraform apply -var-file=dev.tfvars
+```
+
+#### 3. Build and Push Docker Image
+
+```bash
+# Build the image
+docker build -t teefinder-app:v1.0.0 .
+
+# Tag for Artifact Registry
+docker tag teefinder-app:v1.0.0 eu-docker.pkg.dev/teefinder-devops/teefinder-docker-repo/teefinder-app:v1.0.0
+
+# Push to registry
+docker push eu-docker.pkg.dev/teefinder-devops/teefinder-docker-repo/teefinder-app:v1.0.0
+```
+
+#### 4. Cloud Build Pipeline
+
+The `cloudbuild.yaml` is automatically triggered on push to main:
+
+```bash
+# Manual trigger (optional)
+gcloud builds submit --config=cloudbuild.yaml
+
+# View build logs
+gcloud builds log COMMIT_SHA --stream
+```
+
 
 
 # Original Readme
