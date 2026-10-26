@@ -27,7 +27,7 @@
     "@mui/material": "^9.4.0",
     "firebase": "^12.19.0",
     "jwt-decode": "^4.0.0",
-    "mobx": "^7.0.6",
+    "mobx": "^7.1.0",
     "mobx-react-lite": "^5.1.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
